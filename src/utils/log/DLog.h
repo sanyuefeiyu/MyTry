@@ -19,7 +19,8 @@ typedef enum
 typedef enum
 {
     DLOG_CONSOLE = 0x1,
-    DLOG_FILE = 0x1 << 1
+    DLOG_FILE = 0x1 << 1,
+    DLOG_ALL = (DLOG_CONSOLE | DLOG_FILE )
 } DLogMode;
 
 #ifdef __cplusplus

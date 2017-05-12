@@ -7,7 +7,7 @@
 #define D_LOG_COMMON_H
 
 #define LOG_OUTPUT_LEVEL    DLOG_D
-#define TAG_APP             "MyTry2016"
+#define TAG_APP             "MyTry"
 #define LOG_BUF_SIZE        2048
 
 static const char *gLogLevelDes[] = {"Debug", "Info", "Warn", "Error"};

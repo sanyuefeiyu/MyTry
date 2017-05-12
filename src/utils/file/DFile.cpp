@@ -3,7 +3,7 @@
 #include "DFile.h"
 #include "DLog.h"
 
-void DFileWrite2Dest(const char *filePath, const char *buff, const int size)
+DEXPORT void DFileWrite2Dest(const char *filePath, const char *buff, const int size)
 {
     if (filePath == NULL || buff == NULL || size <= 0)
     {
@@ -21,7 +21,7 @@ void DFileWrite2Dest(const char *filePath, const char *buff, const int size)
     fclose(fp);
 }
 
-void DFileFlush(const char *filePath)
+DEXPORT void DFileFlush(const char *filePath)
 {
     FILE *fp = fopen(filePath, "wb+");
     if (fp == NULL)
