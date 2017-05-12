@@ -10,6 +10,7 @@ int main(int argc, char **argv)
 {
     TestDecoder();
 
+    char *test = malloc(10);
     _CrtDumpMemoryLeaks(); 
 
     return 0;

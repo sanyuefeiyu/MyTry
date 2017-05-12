@@ -250,9 +250,23 @@ static void TestAudio()
     av_frame_free(&vs.frame);
 }
 
+static void TestInit()
+{
+    DLogFlush();
+    DFileFlush(gPCMOutputPath);
+}
+
+static void TestRelease()
+{
+}
+
 void TestDecoder()
 {
     DLog(DLOG_D, TAG, "Test begin");
+
+    TestInit();
     TestAudio();
+    TestRelease();
+
     DLog(DLOG_D, TAG, "Test end");
 }

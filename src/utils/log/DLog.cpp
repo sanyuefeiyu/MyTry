@@ -8,12 +8,12 @@ void DLogOutput(DLogMode logMode, DLogLevel level, const char *tag, const char *
 
 static DLogMode gLogMode = DLOG_ALL;
 
-void DLogOutputMode(DLogMode logMode)
+DEXPORT void DLogOutputMode(DLogMode logMode)
 {
     gLogMode = logMode;
 }
 
-void DLog(DLogLevel level, const char *tag, const char *format, ...)
+DEXPORT void DLog(DLogLevel level, const char *tag, const char *format, ...)
 {
     if (level < DLOG_D || level > DLOG_E || level < LOG_OUTPUT_LEVEL)
     {
