@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{2bbd8da4-3b73-4c79-acff-1ff7119d29b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\log">
+      <UniqueIdentifier>{30e79704-1293-4fbf-99e9-a765d5e383bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\log\win32">
+      <UniqueIdentifier>{d4b5b453-f608-4a3b-bfa2-4bca2d40221f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\file">
+      <UniqueIdentifier>{9347cd58-aa28-428f-987e-d612cdbd0d0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\base">
+      <UniqueIdentifier>{dcd4ba79-8eb0-43c6-853d-a42ee120cbed}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="common\log\DLog.cpp">
+      <Filter>common\log</Filter>
+    </ClCompile>
+    <ClCompile Include="common\log\win32\DWin32Log.cpp">
+      <Filter>common\log\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="common\file\DFile.cpp">
+      <Filter>common\file</Filter>
+    </ClCompile>
+    <ClCompile Include="test.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common\log\DLog.h">
+      <Filter>common\log</Filter>
+    </ClInclude>
+    <ClInclude Include="common\log\DLogCommon.h">
+      <Filter>common\log</Filter>
+    </ClInclude>
+    <ClInclude Include="common\file\DFile.h">
+      <Filter>common\file</Filter>
+    </ClInclude>
+    <ClInclude Include="common\base\DExport.h">
+      <Filter>common\base</Filter>
+    </ClInclude>
+    <ClInclude Include="Globalconfig.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
