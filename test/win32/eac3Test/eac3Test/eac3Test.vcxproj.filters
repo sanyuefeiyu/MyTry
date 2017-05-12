@@ -9,54 +9,57 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="common">
-      <UniqueIdentifier>{2bbd8da4-3b73-4c79-acff-1ff7119d29b8}</UniqueIdentifier>
+    <Filter Include="src">
+      <UniqueIdentifier>{8ced0d46-d592-4757-abdd-e04dd2825111}</UniqueIdentifier>
     </Filter>
-    <Filter Include="common\log">
-      <UniqueIdentifier>{30e79704-1293-4fbf-99e9-a765d5e383bb}</UniqueIdentifier>
+    <Filter Include="src\base">
+      <UniqueIdentifier>{f3d83280-749f-4fb7-8cc4-bcf933720158}</UniqueIdentifier>
     </Filter>
-    <Filter Include="common\log\win32">
-      <UniqueIdentifier>{d4b5b453-f608-4a3b-bfa2-4bca2d40221f}</UniqueIdentifier>
+    <Filter Include="src\utils">
+      <UniqueIdentifier>{8dd29e0f-70ab-4ca2-a5fb-691dd56cb515}</UniqueIdentifier>
     </Filter>
-    <Filter Include="common\file">
-      <UniqueIdentifier>{9347cd58-aa28-428f-987e-d612cdbd0d0d}</UniqueIdentifier>
+    <Filter Include="src\utils\file">
+      <UniqueIdentifier>{f75920c7-87e8-4284-b4f0-36142322f263}</UniqueIdentifier>
     </Filter>
-    <Filter Include="common\base">
-      <UniqueIdentifier>{dcd4ba79-8eb0-43c6-853d-a42ee120cbed}</UniqueIdentifier>
+    <Filter Include="src\utils\log">
+      <UniqueIdentifier>{7c51eb65-f142-49c2-88e2-d198b99e9b24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils\log\win32">
+      <UniqueIdentifier>{0da0dfca-f662-4dd6-87fe-70b26c249b4b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="common\log\DLog.cpp">
-      <Filter>common\log</Filter>
-    </ClCompile>
-    <ClCompile Include="common\log\win32\DWin32Log.cpp">
-      <Filter>common\log\win32</Filter>
-    </ClCompile>
-    <ClCompile Include="common\file\DFile.cpp">
-      <Filter>common\file</Filter>
-    </ClCompile>
     <ClCompile Include="test.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\utils\file\DFile.cpp">
+      <Filter>src\utils\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\utils\log\win32\DWin32Log.cpp">
+      <Filter>src\utils\log\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\utils\log\DLog.cpp">
+      <Filter>src\utils\log</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common\log\DLog.h">
-      <Filter>common\log</Filter>
-    </ClInclude>
-    <ClInclude Include="common\log\DLogCommon.h">
-      <Filter>common\log</Filter>
-    </ClInclude>
-    <ClInclude Include="common\file\DFile.h">
-      <Filter>common\file</Filter>
-    </ClInclude>
-    <ClInclude Include="common\base\DExport.h">
-      <Filter>common\base</Filter>
-    </ClInclude>
     <ClInclude Include="Globalconfig.h">
       <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\base\DExport.h">
+      <Filter>src\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\utils\file\DFile.h">
+      <Filter>src\utils\file</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\utils\log\DLog.h">
+      <Filter>src\utils\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\utils\log\DLogCommon.h">
+      <Filter>src\utils\log</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

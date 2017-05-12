@@ -68,17 +68,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="common\file\DFile.cpp" />
-    <ClCompile Include="common\log\DLog.cpp" />
-    <ClCompile Include="common\log\win32\DWin32Log.cpp" />
+    <ClCompile Include="..\..\..\..\src\utils\file\DFile.cpp" />
+    <ClCompile Include="..\..\..\..\src\utils\log\DLog.cpp" />
+    <ClCompile Include="..\..\..\..\src\utils\log\win32\DWin32Log.cpp" />
     <ClCompile Include="main.c" />
     <ClCompile Include="test.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common\base\DExport.h" />
-    <ClInclude Include="common\file\DFile.h" />
-    <ClInclude Include="common\log\DLog.h" />
-    <ClInclude Include="common\log\DLogCommon.h" />
+    <ClInclude Include="..\..\..\..\src\base\DExport.h" />
+    <ClInclude Include="..\..\..\..\src\utils\file\DFile.h" />
+    <ClInclude Include="..\..\..\..\src\utils\log\DLog.h" />
+    <ClInclude Include="..\..\..\..\src\utils\log\DLogCommon.h" />
     <ClInclude Include="Globalconfig.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
