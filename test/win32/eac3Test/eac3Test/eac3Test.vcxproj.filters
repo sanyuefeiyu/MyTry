@@ -39,6 +39,12 @@
     <Filter Include="src\utils\misc\win32">
       <UniqueIdentifier>{73542426-053a-45e7-952d-944da949f7e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\utils\ffmpeg">
+      <UniqueIdentifier>{bef251ee-8dff-4e7e-a37d-0d1073640177}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils\ffmpeg\win32">
+      <UniqueIdentifier>{195ef0da-0210-4454-82c6-25afc1f03bcd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -62,6 +68,9 @@
     <ClCompile Include="..\..\..\..\src\utils\misc\win32\DMiscWin32.cpp">
       <Filter>src\utils\misc\win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\utils\ffmpeg\win32\DFFmpegWin32.c">
+      <Filter>src\utils\ffmpeg\win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globalconfig.h">
@@ -84,6 +93,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\utils\misc\DMisc.h">
       <Filter>src\utils\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\utils\ffmpeg\DFFmpeg.h">
+      <Filter>src\utils\ffmpeg</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

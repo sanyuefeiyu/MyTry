@@ -6,6 +6,8 @@
 #define MY_DEBUG_NEW new(_CLIENT_BLOCK, __FILE__, __LINE__)   
 #define new MY_DEBUG_NEW 
 
+void TestDecoder();
+
 int main(int argc, char **argv)
 {
     TestDecoder();

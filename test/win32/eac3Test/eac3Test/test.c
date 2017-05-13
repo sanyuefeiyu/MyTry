@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "DFile.h"
 #include "DLoad.h"
+#include "DFFmpeg.h"
 #include "DLog.h"
 #include "GlobalConfig.h"
 
@@ -10,6 +11,8 @@
 
 #define DEFAULT_CHANNELS        2
 #define DEFAULT_SAMPLE_BITS     16
+
+static void *gHdlFFmpeg = NULL;
 
 typedef struct VideoState
 {
@@ -256,13 +259,12 @@ static void TestInit()
     DLogFlush();
     DFileFlush(gPCMOutputPath);
 
-    void *hdl = DLoadOpen("avcodec-57.dll");
-    void *proc = DLoadGetSymbol(hdl, "av_register_all");
-    DLoadClose(hdl);
+    gHdlFFmpeg = DFFmpegInit();
 }
 
 static void TestRelease()
 {
+    DFFmpegRelease(&gHdlFFmpeg);
 }
 
 void TestDecoder()
@@ -270,7 +272,12 @@ void TestDecoder()
     DLog(DLOG_D, TAG, "Test begin");
 
     TestInit();
-    TestAudio();
+
+    if (gHdlFFmpeg != NULL)
+    {
+        // TestAudio();
+    }
+
     TestRelease();
 
     DLog(DLOG_D, TAG, "Test end");
