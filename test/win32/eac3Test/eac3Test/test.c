@@ -35,7 +35,7 @@ static VideoState vs;
 static void PrintErrMsg(int err)
 {
     char errbuf[1024];
-    int ret = av_strerror(err, errbuf, 1024);
+    int ret = DFFmpeg_av_strerror(gHdlFFmpeg, err, errbuf, 1024);
     DLog(DLOG_E, TAG, "PrintErrMsg:%s", errbuf);
 }
 
@@ -43,7 +43,7 @@ static void SwrRelease(VideoState *vs)
 {
     if (vs->swrInit)
     {
-        swr_free(&vs->swr);
+        DFFmpeg_swr_free(gHdlFFmpeg, &vs->swr);
         vs->swrInit = 0;
     }
 }
@@ -56,14 +56,14 @@ static void SwrInit(VideoState *vs)
     if (vs->swrInit)
         return;
 
-    vs->swr = swr_alloc();
+    vs->swr = DFFmpeg_swr_alloc(gHdlFFmpeg);
     vs->swrChannelLayout = vs->channelLayout;
-    av_opt_set_int(vs->swr, "in_channel_layout", vs->swrChannelLayout, 0);
-    av_opt_set_int(vs->swr, "out_channel_layout", AV_CH_LAYOUT_STEREO, 0);
-    av_opt_set_sample_fmt(vs->swr, "in_sample_fmt", vs->sampleFormat, 0);
-    av_opt_set_sample_fmt(vs->swr, "out_sample_fmt", AV_SAMPLE_FMT_S16, 0);
+    DFFmpeg_av_opt_set_int(gHdlFFmpeg, vs->swr, "in_channel_layout", vs->swrChannelLayout, 0);
+    DFFmpeg_av_opt_set_int(gHdlFFmpeg, vs->swr, "out_channel_layout", AV_CH_LAYOUT_STEREO, 0);
+    DFFmpeg_av_opt_set_sample_fmt(gHdlFFmpeg, vs->swr, "in_sample_fmt", vs->sampleFormat, 0);
+    DFFmpeg_av_opt_set_sample_fmt(gHdlFFmpeg, vs->swr, "out_sample_fmt", AV_SAMPLE_FMT_S16, 0);
 
-    swr_init(vs->swr);
+    DFFmpeg_swr_init(gHdlFFmpeg, vs->swr);
     vs->swrInit = 1;
 }
 
@@ -73,17 +73,17 @@ static void AudioPostProcess(VideoState *vs, uint8_t *buff[])
 
     SwrInit(vs);
 
-    av_samples_alloc(&output, NULL, DEFAULT_CHANNELS, vs->samples, AV_SAMPLE_FMT_S16, 0);
-    swr_convert(vs->swr, &output, vs->samples, (const uint8_t**)buff, vs->samples);
+    DFFmpeg_av_samples_alloc(gHdlFFmpeg, &output, NULL, DEFAULT_CHANNELS, vs->samples, AV_SAMPLE_FMT_S16, 0);
+    DFFmpeg_swr_convert(gHdlFFmpeg, vs->swr, &output, vs->samples, (const uint8_t**)buff, vs->samples);
 
     DFileWrite2Dest(gPCMOutputPath, output, DEFAULT_CHANNELS * DEFAULT_SAMPLE_BITS / 8 * vs->samples);
 
-    av_freep(&output);
+    DFFmpeg_av_freep(gHdlFFmpeg, &output);
 }
 
 static void InitFFmpeg()
 {
-    av_register_all();
+    DFFmpeg_av_register_all(gHdlFFmpeg);
 }
 
 int decode_interrupt_cb(void *ctx)
@@ -94,21 +94,21 @@ int decode_interrupt_cb(void *ctx)
 
 static int open_decoder(VideoState *vs, int stream_index)
 {
-    AVCodecContext *avctx = avcodec_alloc_context3(NULL);
+    AVCodecContext *avctx = DFFmpeg_avcodec_alloc_context3(gHdlFFmpeg, NULL);
     if (!avctx)
         return AVERROR(ENOMEM);
     vs->avctx = avctx;
 
     AVFormatContext *ic = vs->ic;
-    int ret = avcodec_parameters_to_context(avctx, ic->streams[stream_index]->codecpar);
+    int ret = DFFmpeg_avcodec_parameters_to_context(gHdlFFmpeg, avctx, ic->streams[stream_index]->codecpar);
     if (ret < 0)
     {
         PrintErrMsg(ret);
         return AVERROR(ret);
     }
 
-    av_codec_set_pkt_timebase(avctx, ic->streams[stream_index]->time_base);
-    AVCodec *codec = avcodec_find_decoder(avctx->codec_id);
+    DFFmpeg_av_codec_set_pkt_timebase(gHdlFFmpeg, avctx, ic->streams[stream_index]->time_base);
+    AVCodec *codec = DFFmpeg_avcodec_find_decoder(gHdlFFmpeg, avctx->codec_id);
     if (!codec)
     {
         PrintErrMsg(ret);
@@ -116,8 +116,8 @@ static int open_decoder(VideoState *vs, int stream_index)
     }
     avctx->codec_id = codec->id;
 
-    int stream_lowres = av_codec_get_max_lowres(codec);
-    ret = avcodec_open2(avctx, codec, NULL);
+    int stream_lowres = DFFmpeg_av_codec_get_max_lowres(gHdlFFmpeg, codec);
+    ret = DFFmpeg_avcodec_open2(gHdlFFmpeg, avctx, codec, NULL);
     if (ret < 0)
     {
         PrintErrMsg(ret);
@@ -131,7 +131,7 @@ static int GetDecodeOutput(VideoState *vs, AVFrame *frame)
 {
     do
     {
-        int ret = avcodec_receive_frame(vs->avctx, frame);
+        int ret = DFFmpeg_avcodec_receive_frame(gHdlFFmpeg, vs->avctx, frame);
 
         if (ret == AVERROR(EAGAIN))
         {
@@ -169,7 +169,7 @@ static int Send2Decode(VideoState *vs, AVPacket *pkt)
 {
     do
     {
-        int ret = avcodec_send_packet(vs->avctx, pkt);
+        int ret = DFFmpeg_avcodec_send_packet(gHdlFFmpeg, vs->avctx, pkt);
         if (ret == AVERROR(EAGAIN))
         {
             GetDecodeOutput(vs, vs->frame);
@@ -193,26 +193,26 @@ static void TestAudio()
 {
     InitFFmpeg();
 
-    AVFormatContext *ic = avformat_alloc_context();
+    AVFormatContext *ic = DFFmpeg_avformat_alloc_context(gHdlFFmpeg);
     ic->interrupt_callback.callback = decode_interrupt_cb;
     ic->interrupt_callback.opaque = NULL;
     vs.ic = ic;
 
-    int ret = avformat_open_input(&ic, gFilePath, NULL, NULL);
+    int ret = DFFmpeg_avformat_open_input(gHdlFFmpeg, &ic, gFilePath, NULL, NULL);
     if (ret < 0)
     {
         PrintErrMsg(ret);
         return;
     }
 
-    av_format_inject_global_side_data(ic);
+    DFFmpeg_av_format_inject_global_side_data(gHdlFFmpeg, ic);
 
     int orig_nb_streams = ic->nb_streams;
     int st_index[AVMEDIA_TYPE_NB];
     char* wanted_stream_spec[AVMEDIA_TYPE_NB] = {0};
     memset(st_index, -1, sizeof(st_index));
 
-    ret = av_find_best_stream(ic, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);
+    ret = DFFmpeg_av_find_best_stream(gHdlFFmpeg, ic, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);
     if (ret < 0)
     {
         PrintErrMsg(ret );
@@ -226,11 +226,11 @@ static void TestAudio()
         open_decoder(&vs, st_index[AVMEDIA_TYPE_AUDIO]);
     }
 
-    vs.frame = av_frame_alloc();
+    vs.frame = DFFmpeg_av_frame_alloc(gHdlFFmpeg);
     AVPacket pkt1, *pkt = &pkt1;
     do
     {
-        ret = av_read_frame(ic, pkt);
+        ret = DFFmpeg_av_read_frame(gHdlFFmpeg, ic, pkt);
         if (ret < 0)
         {
             PrintErrMsg(ret);
@@ -251,7 +251,7 @@ static void TestAudio()
         }
     } while (1);
 
-    av_frame_free(&vs.frame);
+    DFFmpeg_av_frame_free(gHdlFFmpeg, &vs.frame);
 }
 
 static void TestInit()
@@ -275,7 +275,7 @@ void TestDecoder()
 
     if (gHdlFFmpeg != NULL)
     {
-        // TestAudio();
+        TestAudio();
     }
 
     TestRelease();
