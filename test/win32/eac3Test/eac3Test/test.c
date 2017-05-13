@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "DFile.h"
+#include "DLoad.h"
 #include "DLog.h"
 #include "GlobalConfig.h"
 
@@ -254,6 +255,10 @@ static void TestInit()
 {
     DLogFlush();
     DFileFlush(gPCMOutputPath);
+
+    void *hdl = DLoadOpen("avcodec-57.dll");
+    void *proc = DLoadGetSymbol(hdl, "av_register_all");
+    DLoadClose(hdl);
 }
 
 static void TestRelease()

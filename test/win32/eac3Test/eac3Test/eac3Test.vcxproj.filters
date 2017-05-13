@@ -27,6 +27,18 @@
     <Filter Include="src\utils\log\win32">
       <UniqueIdentifier>{0da0dfca-f662-4dd6-87fe-70b26c249b4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\utils\lib">
+      <UniqueIdentifier>{b7b4a539-0d83-45b4-9689-a55b629372a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils\lib\win32">
+      <UniqueIdentifier>{1c265abe-20a5-4c81-8d8e-2a1c9c3663b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils\misc">
+      <UniqueIdentifier>{69e904b0-0c84-4e34-8cc5-20c7ef8025a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils\misc\win32">
+      <UniqueIdentifier>{73542426-053a-45e7-952d-944da949f7e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -38,11 +50,17 @@
     <ClCompile Include="..\..\..\..\src\utils\file\DFile.cpp">
       <Filter>src\utils\file</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\src\utils\log\win32\DWin32Log.cpp">
-      <Filter>src\utils\log\win32</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\src\utils\log\DLog.cpp">
       <Filter>src\utils\log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\utils\log\win32\DLogWin32.cpp">
+      <Filter>src\utils\log\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\utils\lib\win32\DLoadWin32.cpp">
+      <Filter>src\utils\lib\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\utils\misc\win32\DMiscWin32.cpp">
+      <Filter>src\utils\misc\win32</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +78,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\utils\log\DLogCommon.h">
       <Filter>src\utils\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\utils\lib\DLoad.h">
+      <Filter>src\utils\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\utils\misc\DMisc.h">
+      <Filter>src\utils\misc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

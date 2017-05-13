@@ -44,7 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\src\base;$(SolutionDir)\..\..\..\src\utils\log;$(SolutionDir)\..\..\..\src\utils\file;$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\src\base;$(SolutionDir)\..\..\..\src\utils\log;$(SolutionDir)\..\..\..\src\utils\file;$(SolutionDir)\..\..\..\src\utils\lib;$(SolutionDir)\..\..\..\src\utils\misc;$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -63,7 +63,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\src\base;$(SolutionDir)\..\..\..\src\utils\log;$(SolutionDir)\..\..\..\src\utils\file;$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\src\base;$(SolutionDir)\..\..\..\src\utils\log;$(SolutionDir)\..\..\..\src\utils\file;$(SolutionDir)\..\..\..\src\utils\lib;$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -80,16 +80,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\src\utils\file\DFile.cpp" />
+    <ClCompile Include="..\..\..\..\src\utils\lib\win32\DLoadWin32.cpp" />
     <ClCompile Include="..\..\..\..\src\utils\log\DLog.cpp" />
-    <ClCompile Include="..\..\..\..\src\utils\log\win32\DWin32Log.cpp" />
+    <ClCompile Include="..\..\..\..\src\utils\log\win32\DLogWin32.cpp" />
+    <ClCompile Include="..\..\..\..\src\utils\misc\win32\DMiscWin32.cpp" />
     <ClCompile Include="main.c" />
     <ClCompile Include="test.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\base\DExport.h" />
     <ClInclude Include="..\..\..\..\src\utils\file\DFile.h" />
+    <ClInclude Include="..\..\..\..\src\utils\lib\DLoad.h" />
     <ClInclude Include="..\..\..\..\src\utils\log\DLog.h" />
     <ClInclude Include="..\..\..\..\src\utils\log\DLogCommon.h" />
+    <ClInclude Include="..\..\..\..\src\utils\misc\DMisc.h" />
     <ClInclude Include="Globalconfig.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
