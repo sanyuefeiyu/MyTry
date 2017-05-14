@@ -5,15 +5,15 @@
 
 #define TAG     "DLoad"
 
-DEXPORT void* DLoadOpen(const char *filePath)
+DEXPORT void* DLoadOpen(const char *path)
 {
-    if (filePath == NULL)
+    if (path == NULL)
     {
         return NULL;
     }
 
-    HMODULE hDllLib = LoadLibrary(filePath);
-    DLog(DLOG_D, TAG, "DLoadOpen %s and result is %p", filePath, hDllLib);
+    HMODULE hDllLib = LoadLibrary(path);
+    DLog(DLOG_D, TAG, "DLoadOpen %s and result is %p", path, hDllLib);
     if (hDllLib == NULL)
     {
         DMiscPrintError();

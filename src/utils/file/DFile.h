@@ -12,8 +12,8 @@
 extern "C" {
 #endif
 
-DEXPORT void DFileWrite2Dest(const char *filePath, const char *buff, const int size);
-DEXPORT void DFileFlush(const char *filePath);
+DEXPORT void DFileWrite2Dest(const char *path, const char *buff, int size);
+DEXPORT void DFileFlush(const char *path);
 
 #ifdef __cplusplus
 }

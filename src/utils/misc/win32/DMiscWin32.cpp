@@ -2,7 +2,7 @@
 #include "DLog.h"
 #include "DMisc.h"
 
-#define TAG     "DMISC"
+#define TAG     "DMisc"
 
 static LPSTR ConvertErrorCodeToString(DWORD ErrorCode)
 {

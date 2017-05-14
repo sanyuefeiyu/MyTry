@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-DEXPORT void* DLoadOpen(const char *filePath);
+DEXPORT void* DLoadOpen(const char *path);
 DEXPORT void* DLoadGetSymbol(const void *hdl, const char *symbolName);
 DEXPORT void DLoadClose(const void *hdl);
 

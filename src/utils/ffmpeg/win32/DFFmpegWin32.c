@@ -8,10 +8,10 @@
 typedef struct
 {
     // dll handler
-    void *hdlAVCodec;
-    void *hdlAVFormat;
-    void *hdlAVUtil;
-    void *hdlSWResamble;
+    void *avcodec;
+    void *avformat;
+    void *avutil;
+    void *swresamble;
 
     // process handler
     av_register_all_proc av_register_all;
@@ -52,48 +52,48 @@ DEXPORT void* DFFmpegInit()
         return NULL;
     }
 
-    hdlFFmpeg->hdlAVFormat = DLoadOpen("avformat-57.dll");
-    hdlFFmpeg->hdlAVCodec = DLoadOpen("avcodec-57.dll");
-    hdlFFmpeg->hdlAVUtil = DLoadOpen("avutil-55.dll");
-    hdlFFmpeg->hdlSWResamble = DLoadOpen("swresample-2.dll");
+    hdlFFmpeg->avformat = DLoadOpen("avformat-57.dll");
+    hdlFFmpeg->avcodec = DLoadOpen("avcodec-57.dll");
+    hdlFFmpeg->avutil = DLoadOpen("avutil-55.dll");
+    hdlFFmpeg->swresamble = DLoadOpen("swresample-2.dll");
 
-    if (hdlFFmpeg->hdlAVFormat == NULL
-        || hdlFFmpeg->hdlAVCodec == NULL
-        || hdlFFmpeg->hdlAVUtil == NULL
-        || hdlFFmpeg->hdlSWResamble == NULL)
+    if (hdlFFmpeg->avformat == NULL
+        || hdlFFmpeg->avcodec == NULL
+        || hdlFFmpeg->avutil == NULL
+        || hdlFFmpeg->swresamble == NULL)
     {
         DFFmpegRelease(&hdlFFmpeg);
         return NULL;
     }
 
-    hdlFFmpeg->av_register_all = (av_register_all_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVFormat, "av_register_all");
-    hdlFFmpeg->av_format_inject_global_side_data = (av_format_inject_global_side_data_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVFormat, "av_format_inject_global_side_data");
-    hdlFFmpeg->avformat_alloc_context = (avformat_alloc_context_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVFormat, "avformat_alloc_context");
-    hdlFFmpeg->avformat_open_input = (avformat_open_input_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVFormat, "avformat_open_input");
-    hdlFFmpeg->av_find_best_stream = (av_find_best_stream_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVFormat, "av_find_best_stream");
-    hdlFFmpeg->av_read_frame = (av_read_frame_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVFormat, "av_read_frame");
+    hdlFFmpeg->av_register_all = (av_register_all_proc)DLoadGetSymbol(hdlFFmpeg->avformat, "av_register_all");
+    hdlFFmpeg->av_format_inject_global_side_data = (av_format_inject_global_side_data_proc)DLoadGetSymbol(hdlFFmpeg->avformat, "av_format_inject_global_side_data");
+    hdlFFmpeg->avformat_alloc_context = (avformat_alloc_context_proc)DLoadGetSymbol(hdlFFmpeg->avformat, "avformat_alloc_context");
+    hdlFFmpeg->avformat_open_input = (avformat_open_input_proc)DLoadGetSymbol(hdlFFmpeg->avformat, "avformat_open_input");
+    hdlFFmpeg->av_find_best_stream = (av_find_best_stream_proc)DLoadGetSymbol(hdlFFmpeg->avformat, "av_find_best_stream");
+    hdlFFmpeg->av_read_frame = (av_read_frame_proc)DLoadGetSymbol(hdlFFmpeg->avformat, "av_read_frame");
 
-    hdlFFmpeg->av_codec_set_pkt_timebase = (av_codec_set_pkt_timebase_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVCodec, "av_codec_set_pkt_timebase");
-    hdlFFmpeg->av_codec_get_max_lowres = (av_codec_get_max_lowres_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVCodec, "av_codec_get_max_lowres");
-    hdlFFmpeg->avcodec_alloc_context3 = (avcodec_alloc_context3_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVCodec, "avcodec_alloc_context3");
-    hdlFFmpeg->avcodec_parameters_to_context = (avcodec_parameters_to_context_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVCodec, "avcodec_parameters_to_context");
-    hdlFFmpeg->avcodec_open2 = (avcodec_open2_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVCodec, "avcodec_open2");
-    hdlFFmpeg->avcodec_find_decoder = (avcodec_find_decoder_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVCodec, "avcodec_find_decoder");
-    hdlFFmpeg->avcodec_send_packet = (avcodec_send_packet_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVCodec, "avcodec_send_packet");
-    hdlFFmpeg->avcodec_receive_frame = (avcodec_receive_frame_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVCodec, "avcodec_receive_frame");
+    hdlFFmpeg->av_codec_set_pkt_timebase = (av_codec_set_pkt_timebase_proc)DLoadGetSymbol(hdlFFmpeg->avcodec, "av_codec_set_pkt_timebase");
+    hdlFFmpeg->av_codec_get_max_lowres = (av_codec_get_max_lowres_proc)DLoadGetSymbol(hdlFFmpeg->avcodec, "av_codec_get_max_lowres");
+    hdlFFmpeg->avcodec_alloc_context3 = (avcodec_alloc_context3_proc)DLoadGetSymbol(hdlFFmpeg->avcodec, "avcodec_alloc_context3");
+    hdlFFmpeg->avcodec_parameters_to_context = (avcodec_parameters_to_context_proc)DLoadGetSymbol(hdlFFmpeg->avcodec, "avcodec_parameters_to_context");
+    hdlFFmpeg->avcodec_open2 = (avcodec_open2_proc)DLoadGetSymbol(hdlFFmpeg->avcodec, "avcodec_open2");
+    hdlFFmpeg->avcodec_find_decoder = (avcodec_find_decoder_proc)DLoadGetSymbol(hdlFFmpeg->avcodec, "avcodec_find_decoder");
+    hdlFFmpeg->avcodec_send_packet = (avcodec_send_packet_proc)DLoadGetSymbol(hdlFFmpeg->avcodec, "avcodec_send_packet");
+    hdlFFmpeg->avcodec_receive_frame = (avcodec_receive_frame_proc)DLoadGetSymbol(hdlFFmpeg->avcodec, "avcodec_receive_frame");
 
-    hdlFFmpeg->av_strerror = (av_strerror_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVUtil, "av_strerror");
-    hdlFFmpeg->av_freep = (av_freep_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVUtil, "av_freep");
-    hdlFFmpeg->av_samples_alloc = (av_samples_alloc_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVUtil, "av_samples_alloc");
-    hdlFFmpeg->av_frame_alloc = (av_frame_alloc_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVUtil, "av_frame_alloc");
-    hdlFFmpeg->av_frame_free = (av_frame_free_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVUtil, "av_frame_free");
-    hdlFFmpeg->av_opt_set_int = (av_opt_set_int_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVUtil, "av_opt_set_int");
-    hdlFFmpeg->av_opt_set_sample_fmt = (av_opt_set_sample_fmt_proc)DLoadGetSymbol(hdlFFmpeg->hdlAVUtil, "av_opt_set_sample_fmt");
+    hdlFFmpeg->av_strerror = (av_strerror_proc)DLoadGetSymbol(hdlFFmpeg->avutil, "av_strerror");
+    hdlFFmpeg->av_freep = (av_freep_proc)DLoadGetSymbol(hdlFFmpeg->avutil, "av_freep");
+    hdlFFmpeg->av_samples_alloc = (av_samples_alloc_proc)DLoadGetSymbol(hdlFFmpeg->avutil, "av_samples_alloc");
+    hdlFFmpeg->av_frame_alloc = (av_frame_alloc_proc)DLoadGetSymbol(hdlFFmpeg->avutil, "av_frame_alloc");
+    hdlFFmpeg->av_frame_free = (av_frame_free_proc)DLoadGetSymbol(hdlFFmpeg->avutil, "av_frame_free");
+    hdlFFmpeg->av_opt_set_int = (av_opt_set_int_proc)DLoadGetSymbol(hdlFFmpeg->avutil, "av_opt_set_int");
+    hdlFFmpeg->av_opt_set_sample_fmt = (av_opt_set_sample_fmt_proc)DLoadGetSymbol(hdlFFmpeg->avutil, "av_opt_set_sample_fmt");
 
-    hdlFFmpeg->swr_alloc = (swr_alloc_proc)DLoadGetSymbol(hdlFFmpeg->hdlSWResamble, "swr_alloc");
-    hdlFFmpeg->swr_init = (swr_init_proc)DLoadGetSymbol(hdlFFmpeg->hdlSWResamble, "swr_init");
-    hdlFFmpeg->swr_free = (swr_free_proc)DLoadGetSymbol(hdlFFmpeg->hdlSWResamble, "swr_free");
-    hdlFFmpeg->swr_convert = (swr_convert_proc)DLoadGetSymbol(hdlFFmpeg->hdlSWResamble, "swr_convert");
+    hdlFFmpeg->swr_alloc = (swr_alloc_proc)DLoadGetSymbol(hdlFFmpeg->swresamble, "swr_alloc");
+    hdlFFmpeg->swr_init = (swr_init_proc)DLoadGetSymbol(hdlFFmpeg->swresamble, "swr_init");
+    hdlFFmpeg->swr_free = (swr_free_proc)DLoadGetSymbol(hdlFFmpeg->swresamble, "swr_free");
+    hdlFFmpeg->swr_convert = (swr_convert_proc)DLoadGetSymbol(hdlFFmpeg->swresamble, "swr_convert");
 
     return hdlFFmpeg;
 }
@@ -107,21 +107,21 @@ DEXPORT void DFFmpegRelease(void **hdl)
 
     DFFmpeg *hdlFFmpeg = *hdl;
 
-    if (hdlFFmpeg->hdlAVFormat != NULL)
+    if (hdlFFmpeg->avformat != NULL)
     {
-        DLoadClose(hdlFFmpeg->hdlAVFormat);
+        DLoadClose(hdlFFmpeg->avformat);
     }
-    if (hdlFFmpeg->hdlAVCodec != NULL)
+    if (hdlFFmpeg->avcodec != NULL)
     {
-        DLoadClose(hdlFFmpeg->hdlAVCodec);
+        DLoadClose(hdlFFmpeg->avcodec);
     }
-    if (hdlFFmpeg->hdlAVUtil != NULL)
+    if (hdlFFmpeg->avutil != NULL)
     {
-        DLoadClose(hdlFFmpeg->hdlAVUtil);
+        DLoadClose(hdlFFmpeg->avutil);
     }
-    if (hdlFFmpeg->hdlSWResamble != NULL)
+    if (hdlFFmpeg->swresamble != NULL)
     {
-        DLoadClose(hdlFFmpeg->hdlSWResamble);
+        DLoadClose(hdlFFmpeg->swresamble);
     }
 
     free(hdlFFmpeg);

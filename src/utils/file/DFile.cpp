@@ -3,17 +3,19 @@
 #include "DFile.h"
 #include "DLog.h"
 
-DEXPORT void DFileWrite2Dest(const char *filePath, const char *buff, const int size)
+#define TAG     "DFile"
+
+DEXPORT void DFileWrite2Dest(const char *path, const char *buff, int size)
 {
-    if (filePath == NULL || buff == NULL || size <= 0)
+    if (path == NULL || buff == NULL || size <= 0)
     {
         return;
     }
 
-    FILE *fp = fopen(filePath, "ab+");
+    FILE *fp = fopen(path, "ab+");
     if (fp == NULL)
     {
-        DLog(DLOG_W, "File", "open file failed, filePath=%s", filePath);
+        DLog(DLOG_W, TAG, "open file failed, path is %s", path);
         return;
     }
 
@@ -21,11 +23,12 @@ DEXPORT void DFileWrite2Dest(const char *filePath, const char *buff, const int s
     fclose(fp);
 }
 
-DEXPORT void DFileFlush(const char *filePath)
+DEXPORT void DFileFlush(const char *path)
 {
-    FILE *fp = fopen(filePath, "wb+");
+    FILE *fp = fopen(path, "wb+");
     if (fp == NULL)
     {
+        DLog(DLOG_W, TAG, "flush file failed, path is %s", path);
         return;
     }
     fclose(fp);

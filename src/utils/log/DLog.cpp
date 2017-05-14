@@ -20,7 +20,7 @@ DEXPORT void DLog(DLogLevel level, const char *tag, const char *format, ...)
         return;
     }
 
-    if (!(gLogMode & 0x11))
+    if (!(gLogMode & DLOG_ALL))
     {
         return;
     }
