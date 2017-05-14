@@ -160,56 +160,64 @@ DEXPORT AVFormatContext *DFFmpeg_avformat_alloc_context(void *hdl)
 {
     if (hdl == NULL)
     {
-        return;
+        return NULL;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->avformat_alloc_context != NULL)
     {
-        (*hdlFFmpeg->avformat_alloc_context)();
+        return (*hdlFFmpeg->avformat_alloc_context)();
     }
+
+    return NULL;
 }
 
 DEXPORT int DFFmpeg_avformat_open_input(void *hdl, AVFormatContext **ps, const char *url, AVInputFormat *fmt, AVDictionary **options)
 {
     if (hdl == NULL)
     {
-        return;
+        return AVERROR_INVALIDDATA;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->avformat_open_input != NULL)
     {
-        (*hdlFFmpeg->avformat_open_input)(ps, url, fmt, options);
+        return (*hdlFFmpeg->avformat_open_input)(ps, url, fmt, options);
     }
+
+    return AVERROR_INVALIDDATA;
 }
 
 DEXPORT int DFFmpeg_av_find_best_stream(void *hdl, AVFormatContext *ic, enum AVMediaType type, int wanted_stream_nb, int related_stream, AVCodec **decoder_ret, int flags)
 {
     if (hdl == NULL)
     {
-        return;
+        return AVERROR_INVALIDDATA;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->av_find_best_stream != NULL)
     {
-        (*hdlFFmpeg->av_find_best_stream)(ic, type, wanted_stream_nb, related_stream, decoder_ret, flags);
+        return (*hdlFFmpeg->av_find_best_stream)(ic, type, wanted_stream_nb, related_stream, decoder_ret, flags);
     }
+
+    return AVERROR_INVALIDDATA;
 }
 
 DEXPORT int DFFmpeg_av_read_frame(void *hdl, AVFormatContext *s, AVPacket *pkt)
 {
     if (hdl == NULL)
     {
-        return;
+        return AVERROR_INVALIDDATA;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->av_read_frame != NULL)
     {
-        (*hdlFFmpeg->av_read_frame)(s, pkt);
+        return (*hdlFFmpeg->av_read_frame)(s, pkt);
     }
+
+    return AVERROR_INVALIDDATA;
 }
 
 DEXPORT void DFFmpeg_av_codec_set_pkt_timebase(void *hdl, AVCodecContext *avctx, AVRational val)
@@ -230,112 +238,128 @@ DEXPORT int DFFmpeg_av_codec_get_max_lowres(void *hdl, const AVCodec *codec)
 {
     if (hdl == NULL)
     {
-        return;
+        return AVERROR_INVALIDDATA;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->av_codec_get_max_lowres != NULL)
     {
-        (*hdlFFmpeg->av_codec_get_max_lowres)(codec);
+        return (*hdlFFmpeg->av_codec_get_max_lowres)(codec);
     }
+
+    return AVERROR_INVALIDDATA;
 }
 
 DEXPORT AVCodecContext *DFFmpeg_avcodec_alloc_context3(void *hdl, const AVCodec *codec)
 {
     if (hdl == NULL)
     {
-        return;
+        return NULL;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->avcodec_alloc_context3 != NULL)
     {
-        (*hdlFFmpeg->avcodec_alloc_context3)(codec);
+        return (*hdlFFmpeg->avcodec_alloc_context3)(codec);
     }
+
+    return NULL;
 }
 
 DEXPORT int DFFmpeg_avcodec_parameters_to_context(void *hdl, AVCodecContext *codec, const AVCodecParameters *par)
 {
     if (hdl == NULL)
     {
-        return;
+        return AVERROR_INVALIDDATA;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->avcodec_parameters_to_context != NULL)
     {
-        (*hdlFFmpeg->avcodec_parameters_to_context)(codec, par);
+        return (*hdlFFmpeg->avcodec_parameters_to_context)(codec, par);
     }
+
+    return AVERROR_INVALIDDATA;
 }
 
 DEXPORT int DFFmpeg_avcodec_open2(void *hdl, AVCodecContext *avctx, const AVCodec *codec, AVDictionary **options)
 {
     if (hdl == NULL)
     {
-        return;
+        return AVERROR_INVALIDDATA;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->avcodec_open2 != NULL)
     {
-        (*hdlFFmpeg->avcodec_open2)(avctx, codec, options);
+        return (*hdlFFmpeg->avcodec_open2)(avctx, codec, options);
     }
+
+    return AVERROR_INVALIDDATA;
 }
 
 DEXPORT AVCodec *DFFmpeg_avcodec_find_decoder(void *hdl, enum AVCodecID id)
 {
     if (hdl == NULL)
     {
-        return;
+        return NULL;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->avcodec_find_decoder != NULL)
     {
-        (*hdlFFmpeg->avcodec_find_decoder)(id);
+        return (*hdlFFmpeg->avcodec_find_decoder)(id);
     }
+
+    return NULL;
 }
 
 DEXPORT int DFFmpeg_avcodec_send_packet(void *hdl, AVCodecContext *avctx, const AVPacket *avpkt)
 {
     if (hdl == NULL)
     {
-        return;
+        return AVERROR_INVALIDDATA;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->avcodec_send_packet != NULL)
     {
-        (*hdlFFmpeg->avcodec_send_packet)(avctx, avpkt);
+        return (*hdlFFmpeg->avcodec_send_packet)(avctx, avpkt);
     }
+
+    return AVERROR_INVALIDDATA;
 }
 
 DEXPORT int DFFmpeg_avcodec_receive_frame(void *hdl, AVCodecContext *avctx, AVFrame *frame)
 {
     if (hdl == NULL)
     {
-        return;
+        return AVERROR_INVALIDDATA;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->avcodec_receive_frame != NULL)
     {
-        (*hdlFFmpeg->avcodec_receive_frame)(avctx, frame);
+        return (*hdlFFmpeg->avcodec_receive_frame)(avctx, frame);
     }
+
+    return AVERROR_INVALIDDATA;
 }
 
 DEXPORT int DFFmpeg_av_strerror(void *hdl, int errnum, char *errbuf, size_t errbuf_size)
 {
     if (hdl == NULL)
     {
-        return;
+        return AVERROR_INVALIDDATA;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->av_strerror != NULL)
     {
-        (*hdlFFmpeg->av_strerror)(errnum, errbuf, errbuf_size);
+        return (*hdlFFmpeg->av_strerror)(errnum, errbuf, errbuf_size);
     }
+
+    return AVERROR_INVALIDDATA;
 }
 
 DEXPORT void DFFmpeg_av_freep(void *hdl, void *arg)
@@ -356,28 +380,32 @@ DEXPORT int DFFmpeg_av_samples_alloc(void *hdl, uint8_t **audio_data, int *lines
 {
     if (hdl == NULL)
     {
-        return;
+        return AVERROR_INVALIDDATA;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->av_samples_alloc != NULL)
     {
-        (*hdlFFmpeg->av_samples_alloc)(audio_data, linesize, nb_channels, nb_samples, sample_fmt, align);
+        return (*hdlFFmpeg->av_samples_alloc)(audio_data, linesize, nb_channels, nb_samples, sample_fmt, align);
     }
+
+    return AVERROR_INVALIDDATA;
 }
 
 DEXPORT AVFrame *DFFmpeg_av_frame_alloc(void *hdl)
 {
     if (hdl == NULL)
     {
-        return;
+        return NULL;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->av_frame_alloc != NULL)
     {
-        (*hdlFFmpeg->av_frame_alloc)();
+        return (*hdlFFmpeg->av_frame_alloc)();
     }
+
+    return NULL;
 }
 
 DEXPORT void DFFmpeg_av_frame_free(void *hdl, AVFrame **frame)
@@ -398,56 +426,64 @@ DEXPORT int DFFmpeg_av_opt_set_int(void *hdl, void *obj, const char *name, int64
 {
     if (hdl == NULL)
     {
-        return;
+        return AVERROR_INVALIDDATA;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->av_opt_set_int != NULL)
     {
-        (*hdlFFmpeg->av_opt_set_int)(obj, name, val, search_flags);
+        return (*hdlFFmpeg->av_opt_set_int)(obj, name, val, search_flags);
     }
+
+    return AVERROR_INVALIDDATA;
 }
 
 DEXPORT int DFFmpeg_av_opt_set_sample_fmt(void *hdl, void *obj, const char *name, enum AVSampleFormat fmt, int search_flags)
 {
     if (hdl == NULL)
     {
-        return;
+        return AVERROR_INVALIDDATA;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->av_opt_set_sample_fmt != NULL)
     {
-        (*hdlFFmpeg->av_opt_set_sample_fmt)(obj, name, fmt, search_flags);
+        return (*hdlFFmpeg->av_opt_set_sample_fmt)(obj, name, fmt, search_flags);
     }
+
+    return AVERROR_INVALIDDATA;
 }
 
 DEXPORT struct SwrContext *DFFmpeg_swr_alloc(void *hdl)
 {
     if (hdl == NULL)
     {
-        return;
+        return NULL;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->swr_alloc != NULL)
     {
-        (*hdlFFmpeg->swr_alloc)();
+        return (*hdlFFmpeg->swr_alloc)();
     }
+
+    return NULL;
 }
 
 DEXPORT int DFFmpeg_swr_init(void *hdl, struct SwrContext *s)
 {
     if (hdl == NULL)
     {
-        return;
+        return AVERROR_INVALIDDATA;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->swr_init != NULL)
     {
-        (*hdlFFmpeg->swr_init)(s);
+        return (*hdlFFmpeg->swr_init)(s);
     }
+
+    return AVERROR_INVALIDDATA;
 }
 
 DEXPORT av_cold void DFFmpeg_swr_free(void *hdl, SwrContext **ss)
@@ -468,12 +504,14 @@ DEXPORT int DFFmpeg_swr_convert(void *hdl, struct SwrContext *s, uint8_t **out, 
 {
     if (hdl == NULL)
     {
-        return;
+        return AVERROR_INVALIDDATA;
     }
 
     DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
     if (hdlFFmpeg->swr_convert != NULL)
     {
-        (*hdlFFmpeg->swr_convert)(s, out, out_count, in, in_count);
+        return (*hdlFFmpeg->swr_convert)(s, out, out_count, in, in_count);
     }
+
+    return AVERROR_INVALIDDATA;
 }
