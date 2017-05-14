@@ -191,6 +191,11 @@ static int Send2Decode(VideoState *vs, AVPacket *pkt)
 
 static void TestAudio()
 {
+    if (gHdlFFmpeg == NULL)
+    {
+        return;
+    }
+
     InitFFmpeg();
 
     AVFormatContext *ic = DFFmpeg_avformat_alloc_context(gHdlFFmpeg);
@@ -256,14 +261,17 @@ static void TestAudio()
 
 static void TestInit()
 {
+    // clear log
     DLogFlush();
     DFileFlush(gPCMOutputPath);
 
+    // load FFmpeg libraries
     gHdlFFmpeg = DFFmpegInit();
 }
 
 static void TestRelease()
 {
+    // deload FFmpeg libraries
     DFFmpegRelease(&gHdlFFmpeg);
 }
 
@@ -273,10 +281,7 @@ void TestDecoder()
 
     TestInit();
 
-    if (gHdlFFmpeg != NULL)
-    {
-        TestAudio();
-    }
+    TestAudio();
 
     TestRelease();
 
