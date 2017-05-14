@@ -2,7 +2,7 @@
 #include "mmsystem.h"
 #include "DTime.h"
 
-long long DTimeGetTick()
+DEXPORT long long DTimeGetTick()
 {
-	return timeGetTime();
+    return timeGetTime();
 }

@@ -46,5 +46,5 @@ void DLogOutput(DLogMode logMode, DLogLevel level, const char *tag, const char *
 
 DEXPORT void DLogFlush()
 {
-	DFileFlush(LOG_FILE_FULL_NAME);
+    DFileFlush(LOG_FILE_FULL_NAME);
 }
