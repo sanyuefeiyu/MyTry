@@ -27,6 +27,7 @@ typedef struct
     avcodec_parameters_to_context_proc avcodec_parameters_to_context;
     avcodec_open2_proc avcodec_open2;
     avcodec_find_decoder_proc avcodec_find_decoder;
+    avcodec_find_decoder_by_name_proc avcodec_find_decoder_by_name;
     avcodec_send_packet_proc avcodec_send_packet;
     avcodec_receive_frame_proc avcodec_receive_frame;
 
@@ -79,6 +80,7 @@ DEXPORT void* DFFmpegInit()
     hdlFFmpeg->avcodec_parameters_to_context = (avcodec_parameters_to_context_proc)DLoadGetSymbol(hdlFFmpeg->avcodec, "avcodec_parameters_to_context");
     hdlFFmpeg->avcodec_open2 = (avcodec_open2_proc)DLoadGetSymbol(hdlFFmpeg->avcodec, "avcodec_open2");
     hdlFFmpeg->avcodec_find_decoder = (avcodec_find_decoder_proc)DLoadGetSymbol(hdlFFmpeg->avcodec, "avcodec_find_decoder");
+    hdlFFmpeg->avcodec_find_decoder_by_name = (avcodec_find_decoder_by_name_proc)DLoadGetSymbol(hdlFFmpeg->avcodec, "avcodec_find_decoder_by_name");
     hdlFFmpeg->avcodec_send_packet = (avcodec_send_packet_proc)DLoadGetSymbol(hdlFFmpeg->avcodec, "avcodec_send_packet");
     hdlFFmpeg->avcodec_receive_frame = (avcodec_receive_frame_proc)DLoadGetSymbol(hdlFFmpeg->avcodec, "avcodec_receive_frame");
 
@@ -309,6 +311,22 @@ DEXPORT AVCodec *DFFmpeg_avcodec_find_decoder(void *hdl, enum AVCodecID id)
     if (hdlFFmpeg->avcodec_find_decoder != NULL)
     {
         return (*hdlFFmpeg->avcodec_find_decoder)(id);
+    }
+
+    return NULL;
+}
+
+DEXPORT AVCodec *DFFmpeg_avcodec_find_decoder_by_name(void *hdl, const char *name)
+{
+    if (hdl == NULL)
+    {
+        return NULL;
+    }
+
+    DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
+    if (hdlFFmpeg->avcodec_find_decoder_by_name != NULL)
+    {
+        return (*hdlFFmpeg->avcodec_find_decoder_by_name)(name);
     }
 
     return NULL;

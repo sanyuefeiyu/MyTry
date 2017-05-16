@@ -87,6 +87,7 @@
     <ClCompile Include="..\..\..\..\src\utils\misc\win32\DMiscWin32.cpp" />
     <ClCompile Include="main.c" />
     <ClCompile Include="test.c" />
+    <ClCompile Include="test2.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\base\DExport.h" />

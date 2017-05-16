@@ -29,6 +29,7 @@ typedef AVCodecContext *(*avcodec_alloc_context3_proc)(const AVCodec *codec);
 typedef int (*avcodec_parameters_to_context_proc)(AVCodecContext *codec, const AVCodecParameters *par);
 typedef int (*avcodec_open2_proc)(AVCodecContext *avctx, const AVCodec *codec, AVDictionary **options);
 typedef AVCodec *(*avcodec_find_decoder_proc)(enum AVCodecID id);
+typedef AVCodec *(*avcodec_find_decoder_by_name_proc)(const char *name);
 typedef int (*avcodec_send_packet_proc)(AVCodecContext *avctx, const AVPacket *avpkt);
 typedef int (*avcodec_receive_frame_proc)(AVCodecContext *avctx, AVFrame *frame);
 
@@ -61,6 +62,7 @@ DEXPORT AVCodecContext *DFFmpeg_avcodec_alloc_context3(void *hdl, const AVCodec 
 DEXPORT int DFFmpeg_avcodec_parameters_to_context(void *hdl, AVCodecContext *codec, const AVCodecParameters *par);
 DEXPORT int DFFmpeg_avcodec_open2(void *hdl, AVCodecContext *avctx, const AVCodec *codec, AVDictionary **options);
 DEXPORT AVCodec *DFFmpeg_avcodec_find_decoder(void *hdl, enum AVCodecID id);
+DEXPORT AVCodec *DFFmpeg_avcodec_find_decoder_by_name(void *hdl, const char *name);
 DEXPORT int DFFmpeg_avcodec_send_packet(void *hdl, AVCodecContext *avctx, const AVPacket *avpkt);
 DEXPORT int DFFmpeg_avcodec_receive_frame(void *hdl, AVCodecContext *avctx, AVFrame *frame);
 

@@ -7,5 +7,3 @@
 #define FILE_PATH_5     "D:\\study\\CS\\res\\audio\\eac3\\channelcheck-ddplus_720.eac3"
 #define FILE_PATH_6     "D:\\study\\CS\\res\\audio\\eac3\\hd_dolby_digital_plus_lossless.eac3"
 
-const char *gFilePath = FILE_PATH_5;
-const char *gPCMOutputPath = "d:\\audio.pcm";

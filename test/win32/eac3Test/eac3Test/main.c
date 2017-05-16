@@ -7,10 +7,13 @@
 #define new MY_DEBUG_NEW 
 
 void TestDecoder();
+void TestDecoder2();
 
 int main(int argc, char **argv)
 {
-    TestDecoder();
+    // TestDecoder();
+
+    TestDecoder2();
 
     char *test = malloc(10);
     _CrtDumpMemoryLeaks(); 

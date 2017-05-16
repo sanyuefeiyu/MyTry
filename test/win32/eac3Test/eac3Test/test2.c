@@ -9,8 +9,8 @@
 #include "libavformat\avformat.h"
 #include "libswresample\swresample.h"
 
-const char *gFilePath = FILE_PATH_5;
-const char *gPCMOutputPath = "d:\\audio.pcm";
+extern const char *gFilePath;
+extern const char *gPCMOutputPath;
 
 #define DEFAULT_CHANNELS        2
 #define DEFAULT_SAMPLE_BITS     16
@@ -84,50 +84,35 @@ static void AudioPostProcess(VideoState *vs, uint8_t *buff[])
     DFFmpeg_av_freep(gHdlFFmpeg, &output);
 }
 
-static void InitFFmpeg()
-{
-    DFFmpeg_av_register_all(gHdlFFmpeg);
-}
-
-int decode_interrupt_cb(void *ctx)
+static int decode_interrupt_cb(void *ctx)
 {
     DLog(DLOG_D, TAG, "decode_interrupt_cb");
     return 0;
 }
 
-static int open_decoder(VideoState *vs, int stream_index)
+static int open_decoder(VideoState *vs)
 {
-    AVCodecContext *avctx = DFFmpeg_avcodec_alloc_context3(gHdlFFmpeg, NULL);
+    DFFmpeg_av_register_all(gHdlFFmpeg);
+
+    AVCodec *codec = DFFmpeg_avcodec_find_decoder_by_name(gHdlFFmpeg, "eac3");
+    if (!codec)
+    {
+        return AVERROR(EINVAL);
+    }
+
+    AVCodecContext *avctx = DFFmpeg_avcodec_alloc_context3(gHdlFFmpeg, codec);
     if (!avctx)
         return AVERROR(ENOMEM);
     vs->avctx = avctx;
 
-    AVFormatContext *ic = vs->ic;
-    int ret = DFFmpeg_avcodec_parameters_to_context(gHdlFFmpeg, avctx, ic->streams[stream_index]->codecpar);
+    int ret = DFFmpeg_avcodec_open2(gHdlFFmpeg, avctx, codec, NULL);
     if (ret < 0)
     {
         PrintErrMsg(ret);
         return AVERROR(ret);
     }
 
-    DFFmpeg_av_codec_set_pkt_timebase(gHdlFFmpeg, avctx, ic->streams[stream_index]->time_base);
-    AVCodec *codec = DFFmpeg_avcodec_find_decoder(gHdlFFmpeg, avctx->codec_id);
-    if (!codec)
-    {
-        PrintErrMsg(ret);
-        return AVERROR(ret);
-    }
-    avctx->codec_id = codec->id;
-
-    int stream_lowres = DFFmpeg_av_codec_get_max_lowres(gHdlFFmpeg, codec);
-    ret = DFFmpeg_avcodec_open2(gHdlFFmpeg, avctx, codec, NULL);
-    if (ret < 0)
-    {
-        PrintErrMsg(ret);
-        return AVERROR(ret);
-    }
-
-    AVERROR(ret);
+    return AVERROR(ret);
 }
 
 static int GetDecodeOutput(VideoState *vs, AVFrame *frame)
@@ -199,53 +184,33 @@ static void TestAudio()
         return;
     }
 
-    InitFFmpeg();
-
-    AVFormatContext *ic = DFFmpeg_avformat_alloc_context(gHdlFFmpeg);
-    ic->interrupt_callback.callback = decode_interrupt_cb;
-    ic->interrupt_callback.opaque = NULL;
-    vs.ic = ic;
-
-    int ret = DFFmpeg_avformat_open_input(gHdlFFmpeg, &ic, gFilePath, NULL, NULL);
-    if (ret < 0)
-    {
-        PrintErrMsg(ret);
-        return;
-    }
-
-    DFFmpeg_av_format_inject_global_side_data(gHdlFFmpeg, ic);
-
-    int orig_nb_streams = ic->nb_streams;
-    int st_index[AVMEDIA_TYPE_NB];
-    char* wanted_stream_spec[AVMEDIA_TYPE_NB] = {0};
-    memset(st_index, -1, sizeof(st_index));
-
-    ret = DFFmpeg_av_find_best_stream(gHdlFFmpeg, ic, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);
-    if (ret < 0)
-    {
-        PrintErrMsg(ret );
-        // return;
-    }
-    // st_index[AVMEDIA_TYPE_AUDIO] = ret;
-    st_index[AVMEDIA_TYPE_AUDIO] = 0;
-
-    if (st_index[AVMEDIA_TYPE_AUDIO] >= 0)
-    {
-        open_decoder(&vs, st_index[AVMEDIA_TYPE_AUDIO]);
-    }
-
+    open_decoder(&vs);
     vs.frame = DFFmpeg_av_frame_alloc(gHdlFFmpeg);
+
+    unsigned char *sourceData = NULL;
+    size_t sourceLen = 0;
+
+    FILE *fp = fopen(gFilePath, "rb+");
+    fseek(fp, 0, SEEK_END);
+    sourceLen = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+
+    sourceData = malloc(sourceLen);
+    fread(sourceData, sourceLen, 1, fp);
+    fclose(fp);
+
+    size_t pos = 0;
+    const unsigned int BUFFER_SIZE = 1792;
     AVPacket pkt1, *pkt = &pkt1;
-    AVRational tb = vs.ic->streams[0]->time_base;
-    do
+    memset(pkt, 0, sizeof(AVPacket));
+    pkt->data = malloc(BUFFER_SIZE);
+
+    while (pos + BUFFER_SIZE <= sourceLen)
     {
-        ret = DFFmpeg_av_read_frame(gHdlFFmpeg, ic, pkt);
-        if (ret < 0)
-        {
-            PrintErrMsg(ret);
-            break;
-        }
-        DLog(DLOG_D, TAG, "read bytes:%d, %lld", pkt->size, 1000 * pkt->pts * tb.num / tb.den);
+        DLog(DLOG_D, TAG, "pos is [%d|%d]", pos, sourceLen);
+
+        memcpy(pkt->data, sourceData + pos, BUFFER_SIZE);
+        pkt->size = BUFFER_SIZE;
 
         // send to decode
         if (Send2Decode(&vs, pkt) < 0)
@@ -258,9 +223,12 @@ static void TestAudio()
         {
             break;
         }
-    } while (1);
+
+        pos += BUFFER_SIZE;
+    }
 
     DFFmpeg_av_frame_free(gHdlFFmpeg, &vs.frame);
+    free(sourceData);
 }
 
 static void TestInit()
@@ -279,7 +247,7 @@ static void TestRelease()
     DFFmpegRelease(&gHdlFFmpeg);
 }
 
-void TestDecoder()
+void TestDecoder2()
 {
     DLog(DLOG_D, TAG, "Test begin");
 
