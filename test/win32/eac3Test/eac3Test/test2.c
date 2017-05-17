@@ -200,7 +200,7 @@ static void TestAudio()
     fclose(fp);
 
     size_t pos = 0;
-    const unsigned int BUFFER_SIZE = 1792;
+    const unsigned int BUFFER_SIZE = 1792 * 10;
     AVPacket pkt1, *pkt = &pkt1;
     memset(pkt, 0, sizeof(AVPacket));
     pkt->data = malloc(BUFFER_SIZE);

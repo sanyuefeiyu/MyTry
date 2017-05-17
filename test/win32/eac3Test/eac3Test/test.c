@@ -9,7 +9,7 @@
 #include "libavformat\avformat.h"
 #include "libswresample\swresample.h"
 
-const char *gFilePath = FILE_PATH_5;
+const char *gFilePath = FILE_PATH_10;
 const char *gPCMOutputPath = "d:\\audio.pcm";
 
 #define DEFAULT_CHANNELS        2
