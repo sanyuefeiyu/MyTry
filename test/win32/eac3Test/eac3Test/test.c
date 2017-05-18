@@ -9,6 +9,8 @@
 #include "libavformat\avformat.h"
 #include "libswresample\swresample.h"
 
+#define TAG "eac3Test"
+
 const char *gFilePath = FILE_PATH_10;
 const char *gPCMOutputPath = "d:\\audio.pcm";
 

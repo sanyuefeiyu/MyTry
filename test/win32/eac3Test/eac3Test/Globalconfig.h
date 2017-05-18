@@ -1,5 +1,3 @@
-#define TAG "eac3Test"
-
 #define FILE_PATH_1     "D:\\study\\CS\\res\\audio\\eac3\\test.eac3"
 #define FILE_PATH_2     "D:\\study\\CS\\res\\video\\sharp.3gp"
 #define FILE_PATH_3     "D:\\study\\CS\\res\\audio\\Beyond-hktk.ape"
