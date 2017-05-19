@@ -17,6 +17,11 @@
 #include <string.h>
 #include <jni.h>
 
+#include "DLog.h"
+#define TAG "hellojni"
+
+void TestDecoder2();
+
 /* This is a trivial JNI example where we use a native method
  * to return a new VM String. See the corresponding Java source
  * file located at:
@@ -58,6 +63,10 @@ Java_com_example_hellojni_HelloJni_stringFromJNI( JNIEnv* env,
 #else
    #define ABI "unknown"
 #endif
+
+    DLog(DLOG_D, TAG, "Test begin");
+    TestDecoder2();
+    DLog(DLOG_D, TAG, "Test end");
 
     return (*env)->NewStringUTF(env, "Hello from JNI !  Compiled with ABI " ABI ".");
 }
