@@ -19,7 +19,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE    := hello-jni
 
 LOCAL_SRC_FILES := hello-jni.c
-LOCAL_SRC_FILES += test2.c
+LOCAL_SRC_FILES += ../../../src/test2.c
 LOCAL_SRC_FILES += ../../../../src/utils/ffmpeg/android/DFFmpegAndroid.c
 LOCAL_SRC_FILES += ../../../../src/utils/file/DFile.cpp
 LOCAL_SRC_FILES += ../../../../src/utils/lib/android/DLoadAndroid.c
