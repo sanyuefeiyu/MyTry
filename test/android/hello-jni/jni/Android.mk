@@ -20,20 +20,20 @@ LOCAL_MODULE    := hello-jni
 
 LOCAL_SRC_FILES := hello-jni.c
 LOCAL_SRC_FILES += test2.c
-LOCAL_SRC_FILES += src/utils/ffmpeg/android/DFFmpegAndroid.c
-LOCAL_SRC_FILES += src/utils/file/DFile.cpp
-LOCAL_SRC_FILES += src/utils/lib/android/DLoadAndroid.c
-LOCAL_SRC_FILES += src/utils/log/DLog.cpp
-LOCAL_SRC_FILES += src/utils/log/android/DLogAndroid.cpp
-LOCAL_SRC_FILES += src/utils/misc/android/DMiscAndroid.c
+LOCAL_SRC_FILES += ../../../../src/utils/ffmpeg/android/DFFmpegAndroid.c
+LOCAL_SRC_FILES += ../../../../src/utils/file/DFile.cpp
+LOCAL_SRC_FILES += ../../../../src/utils/lib/android/DLoadAndroid.c
+LOCAL_SRC_FILES += ../../../../src/utils/log/DLog.cpp
+LOCAL_SRC_FILES += ../../../../src/utils/log/android/DLogAndroid.cpp
+LOCAL_SRC_FILES += ../../../../src/utils/misc/android/DMiscAndroid.c
 
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/ffmpeg/include
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/src/base
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/src/utils/FFmpeg
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/src/utils/file
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/src/utils/lib
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/src/utils/log
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/src/utils/misc
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../../3rd/FFmpeg_3_2_4/include
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../../../src/base
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../../../src/utils/FFmpeg
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../../../src/utils/file
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../../../src/utils/lib
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../../../src/utils/log
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../../../src/utils/misc
 
 # for logging
 LOCAL_LDLIBS    += -L$(LOCAL_PATH)/libs/ -llog -lffmpeg_ddp
