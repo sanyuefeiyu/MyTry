@@ -371,9 +371,10 @@ static int HA_LIBFFmpegDDPDecDecodeFrame(void *hDecoder, unsigned char *buff, un
 //     .DecDecodeFrame       = HA_LIBA52DecDecodeFrame,
 // };
 
-
 static void TestAudio()
 {
+    // read data from file
+
     unsigned char *sourceData = NULL;
     size_t sourceLen = 0;
 
@@ -386,6 +387,8 @@ static void TestAudio()
     fread(sourceData, sourceLen, 1, fp);
     fclose(fp);
 
+    // open decoder 
+
     size_t pos = 0;
     const unsigned int BUFFER_SIZE = 1792;
 
@@ -394,14 +397,15 @@ static void TestAudio()
 
     while (pos + BUFFER_SIZE <= sourceLen)
     {
+        // decode bitrate
         HA_LIBFFmpegDDPDecDecodeFrame(hdlFFmpegDDP, sourceData + pos, BUFFER_SIZE);
 
-        // TODO
         DFileWrite2Dest(gPCMOutputPath, hdlFFmpegDDP->pcm.data, hdlFFmpegDDP->pcm.size);
 
         pos += BUFFER_SIZE;
     }
 
+    // close decoder
     HA_LIBFFmpegDDPDecDeInit(hdlFFmpegDDP);
 
     free(sourceData);
@@ -411,10 +415,11 @@ void TestDecoder2()
 {
     DLog(DLOG_D, TAG, "Test begin");
 
-    // clear log
+    // first old data
     DLogFlush();
     DFileFlush(gPCMOutputPath);
 
+    // test eac3 FFmpeg decoder
     TestAudio();
 
     DLog(DLOG_D, TAG, "Test end");
