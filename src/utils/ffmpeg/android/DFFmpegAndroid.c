@@ -55,7 +55,7 @@ DEXPORT void* DFFmpegInit()
 
     if (hdlFFmpeg->ffmpeg == NULL)
     {
-        DFFmpegRelease(&hdlFFmpeg);
+        DFFmpegRelease((void**)&hdlFFmpeg);
         return NULL;
     }
 

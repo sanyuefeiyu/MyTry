@@ -18,13 +18,13 @@ extern const char *gPCMOutputPath;
 
 typedef struct PCM
 {
-    unsigned char *data;
+    char *data;
     unsigned int capacity;
     unsigned int size;
 } PCM;
 
 #define MAX_PCM_SIZE    (10*1024*1024)
-static void PCMAdd(PCM *pcm, unsigned char *buff, unsigned int size)
+static void PCMAdd(PCM *pcm, char *buff, unsigned int size)
 {
     if (pcm == NULL || buff == NULL || size <=0)
     {
@@ -52,7 +52,7 @@ static void PCMAdd(PCM *pcm, unsigned char *buff, unsigned int size)
             return;
         }
 
-        unsigned char *tempBuff = malloc(size + pcm->size);
+        char *tempBuff = malloc(size + pcm->size);
         if (tempBuff == NULL)
         {
             return;
@@ -160,7 +160,7 @@ static void AudioPostProcess(FFmpegDDP *hdlFFmpegDDP, uint8_t *buff[])
     DFFmpeg_av_samples_alloc(hdlFFmpegDDP->hdlFFmpeg, &output, NULL, DEFAULT_CHANNELS, hdlFFmpegDDP->samples, AV_SAMPLE_FMT_S16, 0);
     DFFmpeg_swr_convert(hdlFFmpegDDP->hdlFFmpeg, hdlFFmpegDDP->swr, &output, hdlFFmpegDDP->samples, (const uint8_t**)buff, hdlFFmpegDDP->samples);
 
-    PCMAdd(&hdlFFmpegDDP->pcm, output, hdlFFmpegDDP->samples * DEFAULT_CHANNELS * DEFAULT_SAMPLE_BITS / 8);
+    PCMAdd(&hdlFFmpegDDP->pcm, (char*)output, hdlFFmpegDDP->samples * DEFAULT_CHANNELS * DEFAULT_SAMPLE_BITS / 8);
 
     DFFmpeg_av_freep(hdlFFmpegDDP->hdlFFmpeg, &output);
 }
@@ -393,7 +393,7 @@ static void TestAudio()
     const unsigned int BUFFER_SIZE = 1792;
 
     FFmpegDDP *hdlFFmpegDDP = NULL;
-    HA_LIBFFmpegDDPDecInit(&hdlFFmpegDDP, NULL);
+    HA_LIBFFmpegDDPDecInit((void**)&hdlFFmpegDDP, NULL);
 
     while (pos + BUFFER_SIZE <= sourceLen)
     {
