@@ -71,7 +71,7 @@
     <ClCompile Include="..\..\..\..\src\utils\ffmpeg\win32\DFFmpegWin32.c">
       <Filter>src\utils\ffmpeg\win32</Filter>
     </ClCompile>
-    <ClCompile Include="test2.c">
+    <ClCompile Include="..\..\..\src\test2.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
