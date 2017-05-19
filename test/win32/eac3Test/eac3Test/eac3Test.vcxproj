@@ -53,7 +53,7 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy $(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\bin\*.dll $(OutDir) /B /Y
+      <Command>xcopy $(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\win32\bin\*.dll $(OutDir) /B /Y
 xcopy $(SolutionDir)\..\..\res\*.eac3 $(OutDir) /B /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -76,7 +76,7 @@ xcopy $(SolutionDir)\..\..\res\*.eac3 $(OutDir) /B /Y</Command>
       <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy $(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\bin\*.dll $(OutDir) /B /Y
+      <Command>xcopy $(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\win32\bin\*.dll $(OutDir) /B /Y
 xcopy $(SolutionDir)\..\..\res\*.eac3 $(OutDir) /B /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

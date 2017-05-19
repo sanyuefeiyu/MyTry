@@ -36,6 +36,6 @@ LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../../../src/utils/log
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../../../src/utils/misc
 
 # for logging
-LOCAL_LDLIBS    += -L$(LOCAL_PATH)/libs/ -llog -lffmpeg_ddp
+LOCAL_LDLIBS    += -L$(LOCAL_PATH)/libs/ -llog
 
 include $(BUILD_SHARED_LIBRARY)
