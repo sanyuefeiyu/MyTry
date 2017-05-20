@@ -413,11 +413,11 @@ static void TestAudio()
 
 void TestDecoder2()
 {
-    DLog(DLOG_D, TAG, "Test begin");
-
-    // first old data
+    // first clear old data
     DLogFlush();
     DFileFlush(gPCMOutputPath);
+
+    DLog(DLOG_D, TAG, "Test begin");
 
     // test eac3 FFmpeg decoder
     TestAudio();
