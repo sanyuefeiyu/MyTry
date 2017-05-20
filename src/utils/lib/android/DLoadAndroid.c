@@ -23,15 +23,15 @@ DEXPORT void* DLoadOpen(const char *path)
     return hDllLib;
 }
 
-DEXPORT void* DLoadGetSymbol(const void *hdl, const char *symbolName)
+DEXPORT void* DLoadGetSymbol(const void *hdl, const char *symbol)
 {
-    if (hdl == NULL || symbolName == NULL)
+    if (hdl == NULL || symbol == NULL)
     {
         return NULL;
     }
 
-    void *proc = dlsym((void*)hdl, symbolName);
-    DLog(DLOG_D, TAG, "DLoadGetSymbol %p, %s and result is %p", hdl, symbolName, proc);
+    void *proc = dlsym((void*)hdl, symbol);
+    DLog(DLOG_D, TAG, "DLoadGetSymbol %p, %s and result is %p", hdl, symbol, proc);
     if (proc == NULL)
     {
         DMiscPrintError();

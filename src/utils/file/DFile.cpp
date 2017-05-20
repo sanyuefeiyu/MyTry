@@ -5,7 +5,7 @@
 
 #define TAG     "DFile"
 
-DEXPORT void DFileWrite2Dest(const char *path, const char *buff, int size)
+DEXPORT void DFileWrite(const char *path, const char *buff, int size)
 {
     if (path == NULL || buff == NULL || size <= 0)
     {

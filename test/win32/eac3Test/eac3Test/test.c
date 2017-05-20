@@ -81,7 +81,7 @@ static void AudioPostProcess(VideoState *vs, uint8_t *buff[])
     DFFmpeg_av_samples_alloc(gHdlFFmpeg, &output, NULL, DEFAULT_CHANNELS, vs->samples, AV_SAMPLE_FMT_S16, 0);
     DFFmpeg_swr_convert(gHdlFFmpeg, vs->swr, &output, vs->samples, (const uint8_t**)buff, vs->samples);
 
-    DFileWrite2Dest(gPCMOutputPath, output, DEFAULT_CHANNELS * DEFAULT_SAMPLE_BITS / 8 * vs->samples);
+    DFileWrite(gPCMOutputPath, output, DEFAULT_CHANNELS * DEFAULT_SAMPLE_BITS / 8 * vs->samples);
 
     DFFmpeg_av_freep(gHdlFFmpeg, &output);
 }

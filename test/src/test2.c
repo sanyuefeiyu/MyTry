@@ -400,7 +400,7 @@ static void TestAudio()
         // decode bitrate
         HA_LIBFFmpegDDPDecDecodeFrame(hdlFFmpegDDP, sourceData + pos, BUFFER_SIZE);
 
-        DFileWrite2Dest(gPCMOutputPath, hdlFFmpegDDP->pcm.data, hdlFFmpegDDP->pcm.size);
+        DFileWrite(gPCMOutputPath, hdlFFmpegDDP->pcm.data, hdlFFmpegDDP->pcm.size);
 
         pos += BUFFER_SIZE;
     }
