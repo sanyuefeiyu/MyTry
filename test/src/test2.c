@@ -229,7 +229,7 @@ static int Send2Decode(FFmpegDDP *hdlFFmpegDDP, AVPacket *pkt)
 
 static int open_decoder(FFmpegDDP *hdlFFmpegDDP)
 {
-    DFFmpeg_av_register_all(hdlFFmpegDDP->hdlFFmpeg);
+     DFFmpeg_avcodec_register_all(hdlFFmpegDDP->hdlFFmpeg);
 
     AVCodec *codec = DFFmpeg_avcodec_find_decoder_by_name(hdlFFmpegDDP->hdlFFmpeg, "eac3");
     if (!codec)

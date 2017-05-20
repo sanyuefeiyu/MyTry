@@ -23,6 +23,7 @@ typedef int (*avformat_open_input_proc)(AVFormatContext **ps, const char *url, A
 typedef int (*av_find_best_stream_proc)(AVFormatContext *ic, enum AVMediaType type, int wanted_stream_nb, int related_stream, AVCodec **decoder_ret, int flags);
 typedef int (*av_read_frame_proc)(AVFormatContext *s, AVPacket *pkt);
 
+typedef void (*avcodec_register_all_proc)(void);
 typedef void (*av_codec_set_pkt_timebase_proc)(AVCodecContext *avctx, AVRational val);
 typedef int (*av_codec_get_max_lowres_proc)(const AVCodec *codec);
 typedef AVCodecContext *(*avcodec_alloc_context3_proc)(const AVCodec *codec);
@@ -57,6 +58,7 @@ DEXPORT int DFFmpeg_avformat_open_input(void *hdl, AVFormatContext **ps, const c
 DEXPORT int DFFmpeg_av_find_best_stream(void *hdl, AVFormatContext *ic, enum AVMediaType type, int wanted_stream_nb, int related_stream, AVCodec **decoder_ret, int flags);
 DEXPORT int DFFmpeg_av_read_frame(void *hdl, AVFormatContext *s, AVPacket *pkt);
 
+DEXPORT void DFFmpeg_avcodec_register_all(void *hdl);
 DEXPORT void DFFmpeg_av_codec_set_pkt_timebase(void *hdl, AVCodecContext *avctx, AVRational val);
 DEXPORT int DFFmpeg_av_codec_get_max_lowres(void *hdl, const AVCodec *codec);
 DEXPORT AVCodecContext *DFFmpeg_avcodec_alloc_context3(void *hdl, const AVCodec *codec);
