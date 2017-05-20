@@ -11,12 +11,6 @@
 
 void DLogOutput(DLogMode logMode, DLogLevel level, const char *tag, const char *buf)
 {
-    struct timeval tv;
-    struct timezone tz;
-    gettimeofday(&tv, &tz);
-    time_t currTime = time(NULL);
-    tm tm2 = *localtime(&currTime);
-
     if (logMode & DLOG_CONSOLE)
     {
         // write log to ddms
@@ -25,6 +19,12 @@ void DLogOutput(DLogMode logMode, DLogLevel level, const char *tag, const char *
 
     if (logMode & DLOG_FILE)
     {
+        struct timeval tv;
+        struct timezone tz;
+        gettimeofday(&tv, &tz);
+        time_t currTime = time(NULL);
+        tm tm2 = *localtime(&currTime);
+
         // write log to file
         char outputBuf[LOG_BUF_SIZE+256];
         int size = snprintf(outputBuf, LOG_BUF_SIZE+256, "%04d-%02d-%02d %02d:%02d:%02d:%03ld [%s:%s] %s %s\r\n",
@@ -45,7 +45,7 @@ void DLogOutput(DLogMode logMode, DLogLevel level, const char *tag, const char *
     }
 }
 
-void DLogFlush()
+DEXPORT void DLogFlush()
 {
     DFileFlush(LOG_FILE_FULL_NAME);
 }
