@@ -18,6 +18,7 @@ typedef struct
     av_find_best_stream_proc av_find_best_stream;
     av_read_frame_proc av_read_frame;
 
+    avcodec_register_all_proc avcodec_register_all;
     av_codec_set_pkt_timebase_proc av_codec_set_pkt_timebase;
     av_codec_get_max_lowres_proc av_codec_get_max_lowres;
     avcodec_alloc_context3_proc avcodec_alloc_context3;
@@ -59,13 +60,7 @@ DEXPORT void* DFFmpegInit()
         return NULL;
     }
 
-    hdlFFmpeg->av_register_all = (av_register_all_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "av_register_all");
-    hdlFFmpeg->av_format_inject_global_side_data = (av_format_inject_global_side_data_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "av_format_inject_global_side_data");
-    hdlFFmpeg->avformat_alloc_context = (avformat_alloc_context_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "avformat_alloc_context");
-    hdlFFmpeg->avformat_open_input = (avformat_open_input_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "avformat_open_input");
-    hdlFFmpeg->av_find_best_stream = (av_find_best_stream_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "av_find_best_stream");
-    hdlFFmpeg->av_read_frame = (av_read_frame_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "av_read_frame");
-
+    hdlFFmpeg->avcodec_register_all = (avcodec_register_all_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "avcodec_register_all");
     hdlFFmpeg->av_codec_set_pkt_timebase = (av_codec_set_pkt_timebase_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "av_codec_set_pkt_timebase");
     hdlFFmpeg->av_codec_get_max_lowres = (av_codec_get_max_lowres_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "av_codec_get_max_lowres");
     hdlFFmpeg->avcodec_alloc_context3 = (avcodec_alloc_context3_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "avcodec_alloc_context3");
@@ -201,6 +196,20 @@ DEXPORT int DFFmpeg_av_read_frame(void *hdl, AVFormatContext *s, AVPacket *pkt)
     }
 
     return AVERROR_INVALIDDATA;
+}
+
+DEXPORT void DFFmpeg_avcodec_register_all(void *hdl)
+{
+    if (hdl == NULL)
+    {
+        return;
+    }
+
+    DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
+    if (hdlFFmpeg->avcodec_register_all != NULL)
+    {
+        (*hdlFFmpeg->avcodec_register_all)();
+    }
 }
 
 DEXPORT void DFFmpeg_av_codec_set_pkt_timebase(void *hdl, AVCodecContext *avctx, AVRational val)
