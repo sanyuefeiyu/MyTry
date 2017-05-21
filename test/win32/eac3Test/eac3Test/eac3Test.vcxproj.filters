@@ -45,6 +45,9 @@
     <Filter Include="src\utils\ffmpeg\win32">
       <UniqueIdentifier>{195ef0da-0210-4454-82c6-25afc1f03bcd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\utils\pcm">
+      <UniqueIdentifier>{7e30287e-1946-4d6b-bd95-3d3d0b8bd771}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -74,6 +77,12 @@
     <ClCompile Include="..\..\..\src\test2.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\eac3Decoder.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\utils\pcm\DPCM.c">
+      <Filter>src\utils\pcm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globalconfig.h">
@@ -99,6 +108,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\utils\ffmpeg\DFFmpeg.h">
       <Filter>src\utils\ffmpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\utils\pcm\DPCM.h">
+      <Filter>src\utils\pcm</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
