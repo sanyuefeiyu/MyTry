@@ -43,7 +43,7 @@ static void PCMAdd(PCM *pcm, char *buff, unsigned int size)
         pcm->size = 0;
     }
 
-    // relocate PCM buffer
+    // realloc PCM buffer
     if (size + pcm->size > pcm->capacity)
     {
         // reach at max presize, and do not malloc again
@@ -92,8 +92,8 @@ static void PCMClean(PCM *pcm)
         free(pcm->data);
         pcm->data = NULL;
     }
-    pcm->size = 0;
     pcm->capacity = 0;
+    pcm->size = 0;
 }
 
 typedef struct FFmpegDDP
