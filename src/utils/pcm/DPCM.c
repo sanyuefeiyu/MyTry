@@ -6,6 +6,7 @@
 #define TAG     "DPCM"
 
 #define MAX_PCM_SIZE    (10*1024*1024)
+
 DEXPORT void DPCMAdd(DPCM *pcm, char *buff, unsigned int size)
 {
     if (pcm == NULL || buff == NULL || size <=0)
@@ -19,6 +20,7 @@ DEXPORT void DPCMAdd(DPCM *pcm, char *buff, unsigned int size)
         pcm->data = malloc(size);
         if (pcm->data == NULL)
         {
+            DLog(DLOG_W, TAG, "alloc PCM buffer [%u] failed", size);
             return;
         }
         pcm->capacity = size;
@@ -28,15 +30,17 @@ DEXPORT void DPCMAdd(DPCM *pcm, char *buff, unsigned int size)
     // realloc PCM buffer
     if (size + pcm->size > pcm->capacity)
     {
-        // reach at max presize, and do not malloc again
+        // reach at max PCM size, and do not malloc again
         if (pcm->capacity >= MAX_PCM_SIZE)
         {
+            DLog(DLOG_W, TAG, "reach at max PCM size[%u], and do not malloc again", pcm->capacity);
             return;
         }
 
         char *tempBuff = malloc(size + pcm->size);
         if (tempBuff == NULL)
         {
+            DLog(DLOG_W, TAG, "realloc PCM buffer [%u,%u] failed", size, pcm->size);
             return;
         }
 

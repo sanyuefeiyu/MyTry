@@ -30,7 +30,7 @@ static void TestAudio()
     fread(sourceData, sourceLen, 1, fp);
     fclose(fp);
 
-    // open decoder 
+    // open decoder
 
     size_t pos = 0;
     const unsigned int BUFFER_SIZE = 1792;

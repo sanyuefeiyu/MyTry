@@ -22,6 +22,7 @@ typedef struct
     av_codec_set_pkt_timebase_proc av_codec_set_pkt_timebase;
     av_codec_get_max_lowres_proc av_codec_get_max_lowres;
     avcodec_alloc_context3_proc avcodec_alloc_context3;
+    avcodec_free_context_proc avcodec_free_context;
     avcodec_parameters_to_context_proc avcodec_parameters_to_context;
     avcodec_open2_proc avcodec_open2;
     avcodec_close_proc avcodec_close;
@@ -64,6 +65,7 @@ DEXPORT void* DFFmpegInit()
     hdlFFmpeg->av_codec_set_pkt_timebase = (av_codec_set_pkt_timebase_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "av_codec_set_pkt_timebase");
     hdlFFmpeg->av_codec_get_max_lowres = (av_codec_get_max_lowres_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "av_codec_get_max_lowres");
     hdlFFmpeg->avcodec_alloc_context3 = (avcodec_alloc_context3_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "avcodec_alloc_context3");
+    hdlFFmpeg->avcodec_free_context = (avcodec_free_context_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "avcodec_free_context");
     hdlFFmpeg->avcodec_parameters_to_context = (avcodec_parameters_to_context_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "avcodec_parameters_to_context");
     hdlFFmpeg->avcodec_open2 = (avcodec_open2_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "avcodec_open2");
     hdlFFmpeg->avcodec_close = (avcodec_close_proc)DLoadGetSymbol(hdlFFmpeg->ffmpeg, "avcodec_close");
@@ -256,6 +258,20 @@ DEXPORT AVCodecContext *DFFmpeg_avcodec_alloc_context3(void *hdl, const AVCodec 
     }
 
     return NULL;
+}
+
+DEXPORT void DFFmpeg_avcodec_free_context(void *hdl, AVCodecContext **pavctx)
+{
+    if (hdl == NULL)
+    {
+        return;
+    }
+
+    DFFmpeg *hdlFFmpeg = (DFFmpeg*)hdl;
+    if (hdlFFmpeg->avcodec_free_context != NULL)
+    {
+        (*hdlFFmpeg->avcodec_free_context)(pavctx);
+    }
 }
 
 DEXPORT int DFFmpeg_avcodec_parameters_to_context(void *hdl, AVCodecContext *codec, const AVCodecParameters *par)

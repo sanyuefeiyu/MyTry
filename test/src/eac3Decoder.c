@@ -51,10 +51,14 @@ static void SwrRelease(FFmpegDDP *hdlFFmpegDDP)
 static void SwrInit(FFmpegDDP *hdlFFmpegDDP)
 {
     if (hdlFFmpegDDP->swrChannelLayout != hdlFFmpegDDP->channelLayout)
+    {
         SwrRelease(hdlFFmpegDDP);
+    }
 
     if (hdlFFmpegDDP->swrInit)
+    {
         return;
+    }
 
     hdlFFmpegDDP->swr = DFFmpeg_swr_alloc(hdlFFmpegDDP->hdlFFmpeg);
     hdlFFmpegDDP->swrChannelLayout = hdlFFmpegDDP->channelLayout;
@@ -156,12 +160,15 @@ static int open_decoder(FFmpegDDP *hdlFFmpegDDP)
 
     AVCodecContext *avctx = DFFmpeg_avcodec_alloc_context3(hdlFFmpegDDP->hdlFFmpeg, codec);
     if (!avctx)
+    {
         return AVERROR(ENOMEM);
+    }
     hdlFFmpegDDP->avctx = avctx;
 
     int ret = DFFmpeg_avcodec_open2(hdlFFmpegDDP->hdlFFmpeg, avctx, codec, NULL);
     if (ret < 0)
     {
+        DFFmpeg_avcodec_free_context(hdlFFmpegDDP->hdlFFmpeg, &avctx);
         PrintErrMsg(hdlFFmpegDDP->hdlFFmpeg, ret);
         return AVERROR(ret);
     }
@@ -200,7 +207,13 @@ int HA_LIBFFmpegDDPDecInit(void **phDecoder, const void *pstOpenParam)
     }
 
     // open decoder
-    open_decoder(hdlFFmpegDDP);
+    if (open_decoder(hdlFFmpegDDP) != 0)
+    {
+        DLog(DLOG_W, TAG, "open codec failed");
+        DFFmpegRelease(&hdlFFmpegDDP->hdlFFmpeg);
+        free(hdlFFmpegDDP);
+        return -1;
+    }
 
     // malloc AVFrame
     hdlFFmpegDDP->frame = DFFmpeg_av_frame_alloc(hdlFFmpegDDP->hdlFFmpeg);
@@ -233,6 +246,9 @@ int HA_LIBFFmpegDDPDecDeInit(void *hDecoder)
 
     // close decoder
     DFFmpeg_avcodec_close(hdlFFmpegDDP->hdlFFmpeg, hdlFFmpegDDP->avctx);
+
+    // release codec context
+    DFFmpeg_avcodec_free_context(hdlFFmpegDDP->hdlFFmpeg, &hdlFFmpegDDP->avctx);
 
     // deload FFmpeg libraries
     DFFmpegRelease(&hdlFFmpegDDP->hdlFFmpeg);
