@@ -83,6 +83,9 @@
     <ClCompile Include="..\..\..\..\src\utils\pcm\DPCM.c">
       <Filter>src\utils\pcm</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\testGif.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globalconfig.h">

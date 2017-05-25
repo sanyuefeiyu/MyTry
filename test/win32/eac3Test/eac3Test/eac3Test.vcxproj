@@ -90,6 +90,7 @@ xcopy $(SolutionDir)\..\..\res\*.eac3 $(OutDir) /B /Y</Command>
     <ClCompile Include="..\..\..\..\src\utils\pcm\DPCM.c" />
     <ClCompile Include="..\..\..\src\eac3Decoder.c" />
     <ClCompile Include="..\..\..\src\test2.c" />
+    <ClCompile Include="..\..\..\src\testGif.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="test.c" />
   </ItemGroup>

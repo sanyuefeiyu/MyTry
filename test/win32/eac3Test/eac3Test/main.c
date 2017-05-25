@@ -8,12 +8,15 @@
 
 void TestDecoder();
 void TestDecoder2();
+void TestGif();
 
 int main(int argc, char **argv)
 {
     // TestDecoder();
 
-    TestDecoder2();
+    // TestDecoder2();
+
+    TestGif();
 
     char *test = malloc(10);
     _CrtDumpMemoryLeaks(); 
