@@ -44,7 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\..\..\..\src\base;$(SolutionDir)\..\..\..\src\utils\log;$(SolutionDir)\..\..\..\src\utils\file;$(SolutionDir)\..\..\..\src\utils\lib;$(SolutionDir)\..\..\..\src\utils\pcm;$(SolutionDir)\..\..\..\src\utils\misc;$(SolutionDir)\..\..\..\src\utils\ffmpeg;$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\..\..\..\src\base;$(SolutionDir)\..\..\..\src\utils\log;$(SolutionDir)\..\..\..\src\utils\file;$(SolutionDir)\..\..\..\src\utils\lib;$(SolutionDir)\..\..\..\src\utils\pcm;$(SolutionDir)\..\..\..\src\utils\bitstream;$(SolutionDir)\..\..\..\src\utils\misc;$(SolutionDir)\..\..\..\src\utils\ffmpeg;$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -64,7 +64,7 @@ xcopy $(SolutionDir)\..\..\res\*.eac3 $(OutDir) /B /Y</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\..\..\..\src\base;$(SolutionDir)\..\..\..\src\utils\log;$(SolutionDir)\..\..\..\src\utils\file;$(SolutionDir)\..\..\..\src\utils\lib;$(SolutionDir)\..\..\..\src\utils\pcm;$(SolutionDir)\..\..\..\src\utils\misc;$(SolutionDir)\..\..\..\src\utils\ffmpeg;$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\..\..\..\src\base;$(SolutionDir)\..\..\..\src\utils\log;$(SolutionDir)\..\..\..\src\utils\file;$(SolutionDir)\..\..\..\src\utils\lib;$(SolutionDir)\..\..\..\src\utils\pcm;$(SolutionDir)\..\..\..\src\utils\bitstream;$(SolutionDir)\..\..\..\src\utils\misc;$(SolutionDir)\..\..\..\src\utils\ffmpeg;$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -81,6 +81,7 @@ xcopy $(SolutionDir)\..\..\res\*.eac3 $(OutDir) /B /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\src\utils\bitstream\DBitStream.cpp" />
     <ClCompile Include="..\..\..\..\src\utils\ffmpeg\win32\DFFmpegWin32.c" />
     <ClCompile Include="..\..\..\..\src\utils\file\DFile.cpp" />
     <ClCompile Include="..\..\..\..\src\utils\lib\win32\DLoadWin32.cpp" />
@@ -96,6 +97,7 @@ xcopy $(SolutionDir)\..\..\res\*.eac3 $(OutDir) /B /Y</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\base\DExport.h" />
+    <ClInclude Include="..\..\..\..\src\utils\bitstream\DBitStream.h" />
     <ClInclude Include="..\..\..\..\src\utils\ffmpeg\DFFmpeg.h" />
     <ClInclude Include="..\..\..\..\src\utils\file\DFile.h" />
     <ClInclude Include="..\..\..\..\src\utils\lib\DLoad.h" />

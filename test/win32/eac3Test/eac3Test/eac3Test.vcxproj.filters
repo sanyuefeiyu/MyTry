@@ -48,6 +48,9 @@
     <Filter Include="src\utils\pcm">
       <UniqueIdentifier>{7e30287e-1946-4d6b-bd95-3d3d0b8bd771}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\utils\bitstream">
+      <UniqueIdentifier>{a2a9e9e8-b76e-44e8-8aa4-f5d25e223e56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -86,6 +89,9 @@
     <ClCompile Include="..\..\..\src\testGif.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\utils\bitstream\DBitStream.cpp">
+      <Filter>src\utils\bitstream</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globalconfig.h">
@@ -114,6 +120,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\utils\pcm\DPCM.h">
       <Filter>src\utils\pcm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\utils\bitstream\DBitStream.h">
+      <Filter>src\utils\bitstream</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

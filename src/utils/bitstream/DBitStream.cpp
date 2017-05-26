@@ -15,7 +15,7 @@ typedef struct DBS
 
 DEXPORT void* DBitStreamInit(unsigned char *buf, unsigned int capacity)
 {
-    if (buf == NULL || capacity == 0)
+    if (buf == NULL || capacity <= 0)
         return NULL;
 
     DBS *bs = (DBS*)calloc(1, sizeof(DBS));
@@ -34,6 +34,19 @@ DEXPORT void* DBitStreamInit(unsigned char *buf, unsigned int capacity)
         bs->isBigEndian = 1;
 
     return bs;
+}
+
+DEXPORT int DBitStreamReInit(void *bs, unsigned char *buf, unsigned int capacity)
+{
+    if (bs == NULL || buf == NULL || capacity <= 0)
+        return -1;
+
+    DBS *hdl = (DBS*)bs;
+    hdl->buf = buf;
+    hdl->capacity = capacity;
+    hdl->pos = 0;
+
+    return 0;
 }
 
 DEXPORT int DBitStreamGetLeftSize(void *bs)
@@ -71,16 +84,16 @@ DEXPORT int DBitStreamReadShort(void *bs, unsigned short *number)
         return -1;
 
     short ret = 0;
-    unsigned char *temp = (unsigned char*)ret;
+    unsigned char *temp = (unsigned char*)&ret;
     if (hdl->isBigEndian)
-    {
-        *(temp + 0) = hdl->buf[hdl->pos + 0];
-        *(temp + 1) = hdl->buf[hdl->pos + 1];
-    }
-    else
     {
         *(temp + 1) = hdl->buf[hdl->pos + 0];
         *(temp + 0) = hdl->buf[hdl->pos + 1];
+    }
+    else
+    {
+        *(temp + 0) = hdl->buf[hdl->pos + 0];
+        *(temp + 1) = hdl->buf[hdl->pos + 1];
     }
 
     hdl->pos += 2;
@@ -99,20 +112,20 @@ DEXPORT int DBitStreamReadInteger(void *bs, unsigned int *number)
         return -1;
 
     unsigned int ret = 0;
-    unsigned char *temp = (unsigned char*)ret;
+    unsigned char *temp = (unsigned char*)&ret;
     if (hdl->isBigEndian)
-    {
-        *(temp + 0) = hdl->buf[hdl->pos + 0];
-        *(temp + 1) = hdl->buf[hdl->pos + 1];
-        *(temp + 2) = hdl->buf[hdl->pos + 2];
-        *(temp + 3) = hdl->buf[hdl->pos + 4];
-    }
-    else
     {
         *(temp + 3) = hdl->buf[hdl->pos + 0];
         *(temp + 2) = hdl->buf[hdl->pos + 1];
         *(temp + 1) = hdl->buf[hdl->pos + 2];
         *(temp + 0) = hdl->buf[hdl->pos + 3];
+    }
+    else
+    {
+        *(temp + 0) = hdl->buf[hdl->pos + 0];
+        *(temp + 1) = hdl->buf[hdl->pos + 1];
+        *(temp + 2) = hdl->buf[hdl->pos + 2];
+        *(temp + 3) = hdl->buf[hdl->pos + 3];
     }
 
     hdl->pos += 4;

@@ -13,6 +13,7 @@ extern "C" {
 #endif
 
 DEXPORT void* DBitStreamInit(unsigned char *buf, unsigned int capacity);
+DEXPORT int DBitStreamReInit(void *bs, unsigned char *buf, unsigned int capacity);
 DEXPORT int DBitStreamGetLeftSize(void *bs);
 DEXPORT int DBitStreamReadChar(void *bs, unsigned char *ch);
 DEXPORT int DBitStreamReadShort(void *bs, unsigned short *number);

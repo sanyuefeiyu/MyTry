@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <DFile.h>
+#include "DBitStream.h"
 #include "DLog.h"
 #include "GlobalConfig.h"
 
@@ -21,15 +22,15 @@ typedef struct DGif
 {
     unsigned char version[32];
 
-    unsigned int logicalWidth;
-    unsigned int logicalHeight;
+    unsigned short logicalWidth;
+    unsigned short logicalHeight;
 
     unsigned int globalColorTableFlag;
     unsigned int colorResolution;
     unsigned int sortFlag;
     unsigned int pixel;
-    unsigned int backgroundColor;
-    unsigned int pixelAspectRatio;
+    unsigned char backgroundColor;
+    unsigned char pixelAspectRatio;
     DRGB globalColorTable[256];
 
 } DGif;
@@ -37,83 +38,69 @@ typedef struct DGif
 static DGif* ParseGif(const char *buf, const int size)
 {
     if (buf == NULL || size <= 0)
-    {
         return NULL;
-    }
 
     DGif *gif = calloc(1, sizeof(DGif));
     if (gif == NULL)
-    {
         return NULL;
-    }
 
-    // parse header
-
-    const char *tempBuf = buf;
-    int pos = 0;
-    if (memcmp(tempBuf, GIF_HEADER_87A, strlen(GIF_HEADER_87A)) == 0)
-    {
-        memcpy(gif->version, GIF_HEADER_87A, strlen(GIF_HEADER_87A));
-        pos += strlen(GIF_HEADER_87A);
-    }
-    else if (memcmp(tempBuf, GIF_HEADER_89A, strlen(GIF_HEADER_89A)) == 0)
-    {
-        memcpy(gif->version, GIF_HEADER_89A, strlen(GIF_HEADER_89A));
-        pos += strlen(GIF_HEADER_89A);
-    }
-    else
+    void *bs = DBitStreamInit((unsigned char*)buf, size);
+    if (bs == NULL)
     {
         free(gif);
         return NULL;
     }
 
-    if (pos + 7 > size)
+    // parse header
+    if (DBitStreamReadBuf(bs, gif->version, strlen(GIF_HEADER_87A)) < 0)
     {
-        return gif;
+        free(bs);
+        free(gif);
+        return NULL;
     }
+    if (memcmp(gif->version, GIF_HEADER_87A, strlen(GIF_HEADER_87A)) != 0
+        && memcmp(gif->version, GIF_HEADER_89A, strlen(GIF_HEADER_89A)) != 0)
+        goto ret;
 
     // parse logical window
 
     // get width and height
-    unsigned char *pWidth = (unsigned char*)(&gif->logicalWidth);
-    pWidth[0] = *(tempBuf + pos + 0);
-    pWidth[1] = *(tempBuf + pos + 1);
-    pos += 2;
-    unsigned char *pHeight = (unsigned char*)(&gif->logicalHeight);
-    pHeight[0] = *(tempBuf + pos + 0);
-    pHeight[1] = *(tempBuf + pos + 1);
-    pos += 2;
+    if (DBitStreamReadShort(bs, &gif->logicalWidth) < 0)
+        goto ret;
+    if (DBitStreamReadShort(bs, &gif->logicalHeight) < 0)
+        goto ret;
 
-    unsigned char ch = *(tempBuf + pos);
+    unsigned char ch;
+    if (DBitStreamReadChar(bs, &ch) < 0)
+        goto ret;
     gif->globalColorTableFlag = (ch & 0x80) >> 7;
     gif->colorResolution = (ch & 0x70) >> 4;
     gif->sortFlag = (ch & 0x08) >> 3;
     gif->pixel = (ch & 0x07);
-    pos += 1;
 
-    gif->backgroundColor = *(tempBuf + pos);
-    pos += 1;
-    gif->pixelAspectRatio = *(tempBuf + pos);
-    pos += 1;
+    if (DBitStreamReadChar(bs, &gif->backgroundColor) < 0)
+        goto ret;
+    if (DBitStreamReadChar(bs, &gif->pixelAspectRatio) < 0)
+        goto ret;
 
     if (gif->globalColorTableFlag)
     {
         int pixelSize = 1 << (gif->pixel + 1);
-        if (pos + pixelSize * 3 > size)
-        {
-            return gif;
-        }
+        if (DBitStreamGetLeftSize(bs) < pixelSize * 3)
+            goto ret;
 
         for (int i = 0; i < pixelSize; i++)
         {
-            gif->globalColorTable[i].r = *(tempBuf + pos + i + 0);
-            gif->globalColorTable[i].g = *(tempBuf + pos + i + 1);
-            gif->globalColorTable[i].b = *(tempBuf + pos + i + 2);
+            unsigned char rgb[3];
+            DBitStreamReadBuf(bs, rgb, 3);
+            gif->globalColorTable[i].r = rgb[0];
+            gif->globalColorTable[i].g = rgb[1];
+            gif->globalColorTable[i].b = rgb[2];
         }
-
-        pos += (pixelSize * 3);
     }
 
+ret:
+    free(bs);
     return gif;
 }
 
