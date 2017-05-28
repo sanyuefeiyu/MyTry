@@ -140,7 +140,7 @@ DEXPORT int DBitStreamReadBuf(void *bs, unsigned char *buf, unsigned int size)
         return -1;
 
     DBS *hdl = (DBS*)bs;
-    if (hdl->pos + size >= hdl->capacity)
+    if (hdl->pos + size -1 >= hdl->capacity)
         return -1;
 
     memcpy(buf, hdl->buf + hdl->pos, size);
