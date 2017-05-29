@@ -44,8 +44,8 @@ typedef struct
     unsigned short ImageHeight;
 
     // <Packed Fields>
-    unsigned int LocalColorTableFlag;   // 1 Bit
-    unsigned int InterlaceFlag; // 1 Bit
+    unsigned int LocalColorTableFlag;   // 1 Bit. 0 - Local Color Table is not present. Use Global Color Table if available. 1 - Local Color Table present, and to follow immediately after this Image Descriptor.
+    unsigned int InterlaceFlag; // 1 Bit. 0 - Image is not interlaced. 1 - Image is interlaced.
     unsigned int SortFlag; // 1 Bit
     unsigned int Reserved; // 2 Bits
     unsigned int SizeofLocalColorTable; // 3 Bits
