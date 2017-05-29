@@ -37,21 +37,18 @@ typedef struct
 
 typedef struct
 {
-    unsigned int m;
-    unsigned int i;
-    unsigned int s;
-    unsigned int r;
-    unsigned int pixel;
-} LocalColorTableFlag;
-
-typedef struct
-{
     unsigned char magic;
-    unsigned short offsetX;
-    unsigned short offsetY;
-    unsigned short imageWidth;
-    unsigned short imageHeight;
-    LocalColorTableFlag localColorTable;
+    unsigned short ImageLeftPosition;
+    unsigned short ImageTopPosition;
+    unsigned short ImageWidth;
+    unsigned short ImageHeight;
+
+    // <Packed Fields>
+    unsigned int LocalColorTableFlag;   // 1 Bit
+    unsigned int InterlaceFlag; // 1 Bit
+    unsigned int SortFlag; // 1 Bit
+    unsigned int Reserved; // 2 Bits
+    unsigned int SizeofLocalColorTable; // 3 Bits
 } ImageDescriptor;
 
 typedef struct
@@ -60,14 +57,6 @@ typedef struct
     unsigned char Label;
     unsigned char BlockSize;
 } BlockHeader;
-
-typedef struct
-{
-    unsigned int reserved;
-    unsigned int method;
-    unsigned int i;
-    unsigned int t;
-} UserInputFlag;
 
 typedef struct
 {
@@ -80,7 +69,12 @@ typedef struct
     BlockHeader header;
 
     // 0xF9(Graphic Control Extension)
-    UserInputFlag userInputFlag;
+    // <Packed Fields>
+    unsigned int Reserved; // 3 Bits
+    unsigned int DisposalMethod; // 3 Bits
+    unsigned int UserInputFlag; // 1 Bit
+    unsigned int TransparentColorFlag; // 1 Bit
+
     unsigned short DelayTime;
     unsigned char TransparentColorIndex;
 
@@ -155,7 +149,7 @@ static int ParseLogicalScreenDescriptor(DGif *gif, void *bs)
     return 0;
 }
 
-static int ParserImageDescriptor(DGif *gif, void *bs)
+static int ParseImageDescriptor(DGif *gif, void *bs)
 {
     if (DBitStreamGetLeftSize(bs) < 10 - 1)
         return -1;
@@ -163,23 +157,23 @@ static int ParserImageDescriptor(DGif *gif, void *bs)
     ImageDescriptor id;
     id.magic = Magic_Image_Descriptor;
 
-    DBitStreamReadShort(bs, &id.offsetX);
-    DBitStreamReadShort(bs, &id.offsetY);
-    DBitStreamReadShort(bs, &id.imageWidth);
-    DBitStreamReadShort(bs, &id.imageHeight);
+    DBitStreamReadShort(bs, &id.ImageLeftPosition);
+    DBitStreamReadShort(bs, &id.ImageTopPosition);
+    DBitStreamReadShort(bs, &id.ImageWidth);
+    DBitStreamReadShort(bs, &id.ImageHeight);
 
-    unsigned char temp;
-    DBitStreamReadChar(bs, &temp);
-    id.localColorTable.m = (temp & 0x80) >> 7;
-    id.localColorTable.i = (temp & 0x40) >> 6;
-    id.localColorTable.s = (temp & 0x20) >> 5;
-    id.localColorTable.r = (temp & 0x18) >> 3;
-    id.localColorTable.pixel = (temp & 0x07) ;
+    unsigned char ch;
+    DBitStreamReadChar(bs, &ch);
+    id.LocalColorTableFlag = (ch & 0x80) >> 7;
+    id.InterlaceFlag = (ch & 0x40) >> 6;
+    id.SortFlag = (ch & 0x20) >> 5;
+    id.Reserved = (ch & 0x18) >> 3;
+    id.SizeofLocalColorTable = (ch & 0x07) ;
 
     return 0;
 }
 
-static int ParserExtensionIntroducer(DGif *gif, void *bs)
+static int ParseExtensionIntroducer(DGif *gif, void *bs)
 {
     if (DBitStreamGetLeftSize(bs) < 8 - 1)
         return -1;
@@ -195,10 +189,11 @@ static int ParserExtensionIntroducer(DGif *gif, void *bs)
         {
             unsigned char ch;
             DBitStreamReadChar(bs, &ch);
-            ei.userInputFlag.reserved = 0;
-            ei.userInputFlag.method = (ch & 0x3C) >> 2;
-            ei.userInputFlag.i = (ch & 0x02) >> 1;
-            ei.userInputFlag.t = (ch & 0x01) >> 0;
+            ei.Reserved = 0;
+            ei.DisposalMethod = (ch & 0x1C) >> 2;
+            ei.UserInputFlag = (ch & 0x02) >> 1;
+            ei.TransparentColorFlag = (ch & 0x01) >> 0;
+
             DBitStreamReadShort(bs, &ei.DelayTime);
             DBitStreamReadChar(bs, &ei.TransparentColorIndex);
 
@@ -207,12 +202,17 @@ static int ParserExtensionIntroducer(DGif *gif, void *bs)
         break;
     case 0xFF:
         {
-            DBitStreamReadBuf(bs, ei.ApplicationIdentifier, 8);
-            DBitStreamReadBuf(bs, ei.AuthenticationCode, 3);
-            DBitStreamReadChar(bs, &ei.applicationData.size);
-            DBitStreamReadBuf(bs, ei.applicationData.data, ei.applicationData.size);
+            if (DBitStreamReadBuf(bs, ei.ApplicationIdentifier, 8) != 0)
+                return -1;
+            if (DBitStreamReadBuf(bs, ei.AuthenticationCode, 3) != 0)
+                return -1;
+            if (DBitStreamReadChar(bs, &ei.applicationData.size) != 0)
+                return -1;
+            if (DBitStreamReadBuf(bs, ei.applicationData.data, ei.applicationData.size) != 0)
+                return -1;
 
-            DBitStreamReadChar(bs, &ei.BlockTerminator);
+            if (DBitStreamReadChar(bs, &ei.BlockTerminator) != 0)
+                return -1;
         }
         break;
     default:
@@ -257,10 +257,12 @@ static DGif* ParseGif(const char *buf, const int size)
         switch (magic)
         {
         case Magic_Image_Descriptor:
-            ParserImageDescriptor(gif, bs);
+            if (ParseImageDescriptor(gif, bs) != 0)
+                goto fail;
             break;
         case Magic_Extension_Introducer:
-            ParserExtensionIntroducer(gif, bs);
+            if (ParseExtensionIntroducer(gif, bs) != 0)
+                goto fail;
             break;
         default:
             goto fail;
