@@ -49,6 +49,8 @@ typedef struct
     unsigned int SortFlag; // 1 Bit
     unsigned int Reserved; // 2 Bits
     unsigned int SizeofLocalColorTable; // 3 Bits
+
+	unsigned char LZWMinimumCodeSize;
 } ImageDescriptor;
 
 typedef struct
@@ -170,6 +172,16 @@ static int ParseImageDescriptor(DGif *gif, void *bs)
     id.Reserved = (ch & 0x18) >> 3;
     id.SizeofLocalColorTable = (ch & 0x07) ;
 
+	DBitStreamReadChar(bs, &id.LZWMinimumCodeSize);
+	unsigned char size;
+	unsigned char data[256];
+	DBitStreamReadChar(bs, &size);
+	while (size != 0x00)
+	{
+		DBitStreamReadBuf(bs, data, size);
+		DBitStreamReadChar(bs, &size);
+	}
+
     return 0;
 }
 
@@ -241,11 +253,9 @@ static DGif* ParseGif(const char *buf, const int size)
         return NULL;
     }
 
-    // parse header
     if (ParseHeader(gif, bs) != 0)
         goto fail;
 
-    // parse logical window
     if (ParseLogicalScreenDescriptor(gif, bs) != 0)
         goto fail;
 
