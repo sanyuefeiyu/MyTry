@@ -1,0 +1,603 @@
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 0, pApkt->u32PtsMs = 0 
+durian_test Send2Decode pApkt->s32Size <= 0 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 7912, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 15744, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 24116, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 30290, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 38790, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 46214, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 53072, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 61762, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 71904, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 79336, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 92282, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 104980, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 118404, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 127648, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 135264, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 147048, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 157412, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 170108, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 182644, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 196246, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 207322, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 215646, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 226886, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 256256, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 0, pApkt->u32PtsMs = 0 
+durian_test Send2Decode pApkt->s32Size <= 0 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 7114, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 14876, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 23198, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 30778, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 38916, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 48744, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 61080, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 71036, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 79352, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 87490, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 98386, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 111644, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 123618, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 137220, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 146470, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 155684, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 168234, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 179104, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 190888, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 204866, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 213556, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 222240, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 232388, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 256256, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 256000, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 255744, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 255488, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 255232, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 254976, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 254720, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 0, pApkt->u32PtsMs = 0 
+durian_test Send2Decode pApkt->s32Size <= 0 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 7474, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 14898, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 23214, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 30976, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 37150, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 48964, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 61838, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 76000, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 86516, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 95016, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 103016, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 115890, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 128794, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 139126, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 147250, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 154674, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 163358, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 174588, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 182536, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 197290, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 218204, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 231812, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 239046, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 250092, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 256000, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 255744, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 255488, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 255232, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 254976, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 254720, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 254464, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 254208, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 0, pApkt->u32PtsMs = 0 
+durian_test Send2Decode pApkt->s32Size <= 0 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 8034, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 18366, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 26680, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 33730, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 41876, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 53116, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 67256, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 77588, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 90300, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 100442, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 108956, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 126794, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 138778, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 152756, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 162712, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 170130, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 179910, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 191512, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 202950, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 214366, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 226518, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 235584, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 247552, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 256256, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 256000, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 255744, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 255488, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 255232, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 254976, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 254720, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 254464, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 254208, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 0, pApkt->u32PtsMs = 0 
+durian_test Send2Decode pApkt->s32Size <= 0 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 8408, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 16532, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 23956, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 71742, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 83340, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 92584, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 102356, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 110158, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 122656, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 134270, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 146438, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 157846, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 167096, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 180154, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 189228, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 200806, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 216266, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 231326, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 245120, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 256358, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 257024, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 256768, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 256512, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 256256, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 0, pApkt->u32PtsMs = 0 
+durian_test Send2Decode pApkt->s32Size <= 0 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 7482, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 15252, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 22116, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 30800, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 39306, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 53108, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 62928, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 75302, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 88558, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 97802, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 106308, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 118644, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 130428, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 143684, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 157310, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 171472, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 180722, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 190864, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 202280, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 213718, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 225134, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 238744, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 248700, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 256256, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 256000, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 255744, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 255488, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 255232, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 254976, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 254720, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 254464, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 0, pApkt->u32PtsMs = 0 
+durian_test Send2Decode pApkt->s32Size <= 0 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 7304, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 15620, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 24134, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 36470, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 45536, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 56062, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 67848, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 80776, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 93464, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 102524, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 111030, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 122814, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 131136, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 141330, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 151120, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 164920, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 183110, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 194710, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 203778, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 217042, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame begin 
+durian_test HA_LIBFFmpegDDPDecDecodeFrame:pApkt->s32Size = 235394, pApkt->u32PtsMs = 0 
+durian_test Send2Decode Failure 
