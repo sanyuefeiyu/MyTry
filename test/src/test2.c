@@ -44,12 +44,16 @@ static void TestAudio()
             break;
 
         // decode bitrate
-        HA_LIBFFmpegDDPDecDecodeFrame(hdlFFmpegDDP, sourceData + pos + frame.startPos, frame.frameSize);
-
-        WritePCM(hdlFFmpegDDP, gPCMOutputPath);
+        if (HA_LIBFFmpegDDPDecDecodeFrame(hdlFFmpegDDP, sourceData + pos + frame.startPos, frame.frameSize) == 0)
+        {
+            WritePCM(hdlFFmpegDDP, gPCMOutputPath);
+        }
+        else
+        {
+            DLog(DLOG_D, TAG, "decode failed!!!!!!");
+        }
 
         pos += (frame.frameSize + frame.startPos);
-
     } while (1);
 
     // close decoder
