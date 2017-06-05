@@ -59,6 +59,16 @@ DEXPORT int DBitStreamGetLeftSize(void *bs)
     return hdl->capacity - hdl->pos;
 }
 
+DEXPORT int DBitStreamGetPos(void *bs)
+{
+    if (bs == NULL)
+        return -1;
+
+    DBS *hdl = (DBS*)bs;
+
+    return hdl->pos;
+}
+
 DEXPORT int DBitStreamReadChar(void *bs, unsigned char *ch)
 {
     if (bs == NULL || ch == NULL)

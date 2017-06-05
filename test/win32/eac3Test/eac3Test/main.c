@@ -14,9 +14,9 @@ int main(int argc, char **argv)
 {
     // TestDecoder();
 
-    // TestDecoder2();
+    TestDecoder2();
 
-    TestGif();
+    // TestGif();
 
     char *test = malloc(10);
     _CrtDumpMemoryLeaks(); 

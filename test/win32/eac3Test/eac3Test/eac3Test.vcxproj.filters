@@ -51,6 +51,12 @@
     <Filter Include="src\utils\bitstream">
       <UniqueIdentifier>{a2a9e9e8-b76e-44e8-8aa4-f5d25e223e56}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\utils\parser">
+      <UniqueIdentifier>{45d0b095-6a58-43e9-ad90-2e06de7ebba8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils\parser\eac3">
+      <UniqueIdentifier>{912ef374-8c9b-4620-8155-f18c891c81d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -92,6 +98,9 @@
     <ClCompile Include="..\..\..\..\src\utils\bitstream\DBitStream.cpp">
       <Filter>src\utils\bitstream</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\utils\parser\eac3\DParseEac3.c">
+      <Filter>src\utils\parser\eac3</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globalconfig.h">
@@ -123,6 +132,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\utils\bitstream\DBitStream.h">
       <Filter>src\utils\bitstream</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\utils\parser\eac3\DParseEac3.h">
+      <Filter>src\utils\parser\eac3</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
