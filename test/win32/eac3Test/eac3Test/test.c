@@ -11,7 +11,7 @@
 
 #define TAG "eac3Test"
 
-const char *gFilePath = FILE_PATH_10;
+const char *gFilePath = FILE_PATH_13;
 const char *gPCMOutputPath = "d:\\audio.pcm";
 
 #define DEFAULT_CHANNELS        2

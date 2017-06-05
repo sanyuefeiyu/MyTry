@@ -22,8 +22,7 @@ static void TestAudio()
     unsigned char *sourceData = NULL;
     size_t sourceLen = 0;
 
-    // FILE *fp = fopen(gFilePath, "rb+");
-    FILE *fp = fopen("D:\\temp\\0604\\durian_test_data_1353.data", "rb+");
+    FILE *fp = fopen(gFilePath, "rb+");
     fseek(fp, 0, SEEK_END);
     sourceLen = ftell(fp);
     fseek(fp, 0, SEEK_SET);
@@ -34,24 +33,24 @@ static void TestAudio()
 
     // open decoder
 
-    size_t pos = 0;
-    const unsigned int BUFFER_SIZE = 1792 * 100;
-
     void *hdlFFmpegDDP = NULL;
     HA_LIBFFmpegDDPDecInit((void**)&hdlFFmpegDDP, NULL);
 
-    SyncFrame frame;
-    DParseEac3(sourceData + pos, sourceLen, &frame);
-
-    while (pos + BUFFER_SIZE <= sourceLen)
+    size_t pos = 0;
+    do
     {
+        SyncFrame frame;
+        if (DParseEac3(sourceData + pos, sourceLen - pos, &frame) != 0)
+            break;
+
         // decode bitrate
-        HA_LIBFFmpegDDPDecDecodeFrame(hdlFFmpegDDP, sourceData + pos, BUFFER_SIZE);
+        HA_LIBFFmpegDDPDecDecodeFrame(hdlFFmpegDDP, sourceData + pos + frame.startPos, frame.frameSize);
 
         WritePCM(hdlFFmpegDDP, gPCMOutputPath);
 
-        pos += BUFFER_SIZE;
-    }
+        pos += (frame.frameSize + frame.startPos);
+
+    } while (1);
 
     // close decoder
     HA_LIBFFmpegDDPDecDeInit(hdlFFmpegDDP);

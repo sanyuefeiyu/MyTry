@@ -7,4 +7,4 @@
 #define FILE_PATH_10    "channelcheck-ddplus_720.eac3"
 #define FILE_PATH_11    "hd_dolby_digital_plus_lossless.eac3"
 #define FILE_PATH_12    "test.eac3"
-
+#define FILE_PATH_13    "test.ac3"
