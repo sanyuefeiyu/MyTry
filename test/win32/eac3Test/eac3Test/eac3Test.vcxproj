@@ -64,7 +64,7 @@ xcopy $(SolutionDir)\..\..\res\*.eac3 $(OutDir) /B /Y</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\..\..\..\src\base;$(SolutionDir)\..\..\..\src\utils\log;$(SolutionDir)\..\..\..\src\utils\file;$(SolutionDir)\..\..\..\src\utils\lib;$(SolutionDir)\..\..\..\src\utils\pcm;$(SolutionDir)\..\..\..\src\utils\bitstream;$(SolutionDir)\..\..\..\src\utils\misc;$(SolutionDir)\..\..\..\src\utils\ffmpeg;$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\..\..\..\src\base;$(SolutionDir)\..\..\..\src\utils\log;$(SolutionDir)\..\..\..\src\utils\file;$(SolutionDir)\..\..\..\src\utils\lib;$(SolutionDir)\..\..\..\src\utils\pcm;$(SolutionDir)\..\..\..\src\utils\parser\eac3;$(SolutionDir)\..\..\..\src\utils\bitstream;$(SolutionDir)\..\..\..\src\utils\misc;$(SolutionDir)\..\..\..\src\utils\ffmpeg;$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -88,7 +88,7 @@ xcopy $(SolutionDir)\..\..\res\*.eac3 $(OutDir) /B /Y</Command>
     <ClCompile Include="..\..\..\..\src\utils\log\DLog.cpp" />
     <ClCompile Include="..\..\..\..\src\utils\log\win32\DLogWin32.cpp" />
     <ClCompile Include="..\..\..\..\src\utils\misc\win32\DMiscWin32.cpp" />
-    <ClCompile Include="..\..\..\..\src\utils\parser\eac3\DParseEac3.c" />
+    <ClCompile Include="..\..\..\..\src\utils\parser\eac3\DParseEac3.cpp" />
     <ClCompile Include="..\..\..\..\src\utils\pcm\DPCM.c" />
     <ClCompile Include="..\..\..\src\eac3Decoder.c" />
     <ClCompile Include="..\..\..\src\test2.c" />

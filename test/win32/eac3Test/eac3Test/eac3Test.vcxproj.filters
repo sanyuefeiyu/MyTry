@@ -98,7 +98,7 @@
     <ClCompile Include="..\..\..\..\src\utils\bitstream\DBitStream.cpp">
       <Filter>src\utils\bitstream</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\src\utils\parser\eac3\DParseEac3.c">
+    <ClCompile Include="..\..\..\..\src\utils\parser\eac3\DParseEac3.cpp">
       <Filter>src\utils\parser\eac3</Filter>
     </ClCompile>
   </ItemGroup>

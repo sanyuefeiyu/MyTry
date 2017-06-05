@@ -40,10 +40,11 @@ static void TestAudio()
     void *hdlFFmpegDDP = NULL;
     HA_LIBFFmpegDDPDecInit((void**)&hdlFFmpegDDP, NULL);
 
+    SyncFrame frame;
+    DParseEac3(sourceData + pos, sourceLen, &frame);
+
     while (pos + BUFFER_SIZE <= sourceLen)
     {
-        DParseEac3(sourceData + pos, BUFFER_SIZE);
-
         // decode bitrate
         HA_LIBFFmpegDDPDecDecodeFrame(hdlFFmpegDDP, sourceData + pos, BUFFER_SIZE);
 

@@ -29,7 +29,7 @@ LOCAL_SRC_FILES += ../../../../src/utils/log/android/DLogAndroid.cpp
 LOCAL_SRC_FILES += ../../../../src/utils/pcm/DPCM.c
 LOCAL_SRC_FILES += ../../../../src/utils/misc/android/DMiscAndroid.c
 LOCAL_SRC_FILES += ../../../../src/utils/bitstream/DBitStream.cpp
-LOCAL_SRC_FILES += ../../../../src/utils/parser/eac3/DParseEac3.c
+LOCAL_SRC_FILES += ../../../../src/utils/parser/eac3/DParseEac3.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../../3rd/FFmpeg_3_2_4/include
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../../../src/base

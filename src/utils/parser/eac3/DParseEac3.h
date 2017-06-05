@@ -8,11 +8,30 @@
 
 #include "DExport.h"
 
+typedef struct
+{
+    unsigned short syncword; // 16
+    unsigned short crc1; // 16
+    unsigned char fscod; // 2
+    unsigned char frmsizecod; // 6
+} SyncInfo;
+
+typedef struct
+{
+    SyncInfo syncInfo;
+
+    int sampleRate;
+    int frameSize;
+    int bitrate;
+
+    int startPos;
+} SyncFrame;
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-DEXPORT void DParseEac3(const unsigned char *buf, int size);
+DEXPORT int DParseEac3(const unsigned char *buf, int size, SyncFrame *frame);
 
 #ifdef __cplusplus
 }
