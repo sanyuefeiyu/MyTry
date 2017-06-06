@@ -10,15 +10,34 @@
 
 typedef struct
 {
-    unsigned short syncword; // 16
-    unsigned short crc1; // 16
+    unsigned char syncword[2]; // 16
+    unsigned char crc1[2]; // 16
     unsigned char fscod; // 2
     unsigned char frmsizecod; // 6
 } SyncInfo;
 
 typedef struct
 {
+    unsigned char bsid; // 5
+} AC3BSI;
+
+typedef struct
+{
+    unsigned char strmtyp; // 2
+    unsigned char substreamid; // 3
+    unsigned short frmsiz; // 11
+    unsigned char fscod; // 2
+    unsigned char fscod2, numblkscod; // 2
+    unsigned char acmod; // 3
+    unsigned char ifeon; // 1
+    unsigned char bsid; // 5
+} eAC3BSI;
+
+typedef struct
+{
     SyncInfo syncInfo;
+    AC3BSI bsi;
+    eAC3BSI ebsi;
 
     int sampleRate;
     int frameSize;
