@@ -51,14 +51,10 @@ static void SwrRelease(FFmpegDDP *hdlFFmpegDDP)
 static void SwrInit(FFmpegDDP *hdlFFmpegDDP)
 {
     if (hdlFFmpegDDP->swrChannelLayout != hdlFFmpegDDP->channelLayout)
-    {
         SwrRelease(hdlFFmpegDDP);
-    }
 
     if (hdlFFmpegDDP->swrInit)
-    {
         return;
-    }
 
     hdlFFmpegDDP->swr = DFFmpeg_swr_alloc(hdlFFmpegDDP->hdlFFmpeg);
     hdlFFmpegDDP->swrChannelLayout = hdlFFmpegDDP->channelLayout;
@@ -154,15 +150,11 @@ static int open_decoder(FFmpegDDP *hdlFFmpegDDP)
 
     AVCodec *codec = DFFmpeg_avcodec_find_decoder_by_name(hdlFFmpegDDP->hdlFFmpeg, "eac3");
     if (!codec)
-    {
         return AVERROR(EINVAL);
-    }
 
     AVCodecContext *avctx = DFFmpeg_avcodec_alloc_context3(hdlFFmpegDDP->hdlFFmpeg, codec);
     if (!avctx)
-    {
         return AVERROR(ENOMEM);
-    }
     hdlFFmpegDDP->avctx = avctx;
 
     int ret = DFFmpeg_avcodec_open2(hdlFFmpegDDP->hdlFFmpeg, avctx, codec, NULL);
@@ -278,15 +270,11 @@ int HA_LIBFFmpegDDPDecDecodeFrame(void *hDecoder, unsigned char *buff, unsigned 
 
     // send to decode
     if (Send2Decode(hdlFFmpegDDP, pkt) < 0)
-    {
         return -1;
-    }
 
     // get decode output
     if (GetDecodeOutput(hdlFFmpegDDP, hdlFFmpegDDP->frame) < 0)
-    {
         return -1;
-    }
 
     return 0;
 }
