@@ -42,6 +42,7 @@ typedef struct
     int sampleRate;
     int frameSize;
     int bitrate;
+    int numberBlock;
 
     int startPos;
 } SyncFrame;

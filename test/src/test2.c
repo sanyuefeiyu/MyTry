@@ -5,9 +5,6 @@
 #include "DLog.h"
 #include "GlobalConfig.h"
 
-extern const char *gFilePath;
-extern const char *gPCMOutputPath;
-
 #define TAG     "Test2"
 
 int HA_LIBFFmpegDDPDecInit(void **phDecoder, const void *pstOpenParam);
@@ -22,7 +19,7 @@ static void TestAudio()
     unsigned char *sourceData = NULL;
     size_t sourceLen = 0;
 
-    FILE *fp = fopen(gFilePath, "rb+");
+    FILE *fp = fopen(g_FILE_PATH, "rb+");
     fseek(fp, 0, SEEK_END);
     sourceLen = ftell(fp);
     fseek(fp, 0, SEEK_SET);

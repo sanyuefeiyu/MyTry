@@ -25,6 +25,7 @@ static const int BitRateTable[38] = { 32000, 32000, 40000, 40000, 48000, 48000,
                                         192000, 192000, 224000, 224000, 256000, 256000, 320000,
                                         320000, 384000, 384000, 448000, 448000, 512000, 512000,
                                         576000, 576000, 640000, 640000 };
+static const int NumberofAudioBlocksPerSyncframe[4] = { 1, 2, 3, 6 };
 
 DEXPORT int DParseEac3(const unsigned char *buf, int size, SyncFrame *frame)
 {
@@ -84,6 +85,7 @@ DEXPORT int DParseEac3(const unsigned char *buf, int size, SyncFrame *frame)
             if (DBitStreamGetLeftSize(bs) + 6 < frame->frameSize)
                 break;
 
+            frame->numberBlock = 6;
             found = true;
             frame->startPos = DBitStreamGetPos(bs) - 6;
             break;
@@ -109,6 +111,8 @@ DEXPORT int DParseEac3(const unsigned char *buf, int size, SyncFrame *frame)
             {
                 frame->ebsi.numblkscod = (buf[2] & 0x30) >> 4;
             }
+            frame->numberBlock = NumberofAudioBlocksPerSyncframe[frame->ebsi.numblkscod];
+            frame->bitrate = 8LL * frame->frameSize * frame->sampleRate / (frame->numberBlock * 256);
             DLog(DLOG_D, TAG, "get bitrate attr is %d, %d, %d", frame->sampleRate, frame->frameSize, frame->bitrate);
 
             // no enough buffer

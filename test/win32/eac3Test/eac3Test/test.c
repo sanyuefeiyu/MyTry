@@ -11,8 +11,6 @@
 
 #define TAG "eac3Test"
 
-const char *gFilePath = FILE_PATH_14;
-const char *gPCMOutputPath = "d:\\audio.pcm";
 
 #define DEFAULT_CHANNELS        2
 #define DEFAULT_SAMPLE_BITS     16
@@ -209,7 +207,7 @@ static void TestAudio()
     ic->interrupt_callback.opaque = NULL;
     FFmpegDDPInstance.ic = ic;
 
-    int ret = DFFmpeg_avformat_open_input(FFmpegDDPInstance.hdlFFmpeg, &ic, gFilePath, NULL, NULL);
+    int ret = DFFmpeg_avformat_open_input(FFmpegDDPInstance.hdlFFmpeg, &ic, g_FILE_PATH, NULL, NULL);
     if (ret < 0)
     {
         PrintErrMsg(FFmpegDDPInstance.hdlFFmpeg, ret);
