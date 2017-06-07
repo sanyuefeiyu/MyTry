@@ -17,10 +17,9 @@ const char *gPCMOutputPath = "d:\\audio.pcm";
 #define DEFAULT_CHANNELS        2
 #define DEFAULT_SAMPLE_BITS     16
 
-static void *gHdlFFmpeg = NULL;
-
-typedef struct VideoState
+typedef struct FFmpegDDP
 {
+    void *hdlFFmpeg;
     AVFormatContext *ic;
     AVCodecContext *avctx;
     AVFrame *frame;
@@ -33,62 +32,63 @@ typedef struct VideoState
     SwrContext *swr;
     unsigned int swrInit;
     unsigned long long swrChannelLayout;
-} VideoState;
+} FFmpegDDP;
 
-static VideoState vs;
+static FFmpegDDP FFmpegDDPInstance;
 
-static void PrintErrMsg(int err)
+static void PrintErrMsg(void *hdlFFmpeg, int err)
 {
     char errbuf[1024];
-    int ret = DFFmpeg_av_strerror(gHdlFFmpeg, err, errbuf, 1024);
+    int ret = DFFmpeg_av_strerror(hdlFFmpeg, err, errbuf, 1024);
     DLog(DLOG_E, TAG, "PrintErrMsg:%s", errbuf);
 }
 
-static void SwrRelease(VideoState *vs)
+static void SwrRelease(FFmpegDDP *hdlFFmpegDDP)
 {
-    if (vs->swrInit)
+    if (hdlFFmpegDDP->swrInit)
     {
-        DFFmpeg_swr_free(gHdlFFmpeg, &vs->swr);
-        vs->swrInit = 0;
+        DFFmpeg_swr_free(hdlFFmpegDDP->hdlFFmpeg, &hdlFFmpegDDP->swr);
+        hdlFFmpegDDP->swrInit = 0;
     }
 }
 
-static void SwrInit(VideoState *vs)
+static void SwrInit(FFmpegDDP *hdlFFmpegDDP)
 {
-    if (vs->swrChannelLayout != vs->channelLayout)
-        SwrRelease(vs);
+    if (hdlFFmpegDDP->swrChannelLayout != hdlFFmpegDDP->channelLayout)
+        SwrRelease(hdlFFmpegDDP);
 
-    if (vs->swrInit)
+    if (hdlFFmpegDDP->swrInit)
         return;
 
-    vs->swr = DFFmpeg_swr_alloc(gHdlFFmpeg);
-    vs->swrChannelLayout = vs->channelLayout;
-    DFFmpeg_av_opt_set_int(gHdlFFmpeg, vs->swr, "in_channel_layout", vs->swrChannelLayout, 0);
-    DFFmpeg_av_opt_set_int(gHdlFFmpeg, vs->swr, "out_channel_layout", AV_CH_LAYOUT_STEREO, 0);
-    DFFmpeg_av_opt_set_sample_fmt(gHdlFFmpeg, vs->swr, "in_sample_fmt", vs->sampleFormat, 0);
-    DFFmpeg_av_opt_set_sample_fmt(gHdlFFmpeg, vs->swr, "out_sample_fmt", AV_SAMPLE_FMT_S16, 0);
+    hdlFFmpegDDP->swr = DFFmpeg_swr_alloc(hdlFFmpegDDP->hdlFFmpeg);
+    hdlFFmpegDDP->swrChannelLayout = hdlFFmpegDDP->channelLayout;
+    SwrContext *swr = hdlFFmpegDDP->swr;
+    DFFmpeg_av_opt_set_int(hdlFFmpegDDP->hdlFFmpeg,  swr, "in_channel_layout", hdlFFmpegDDP->swrChannelLayout, 0);
+    DFFmpeg_av_opt_set_int(hdlFFmpegDDP->hdlFFmpeg,  swr, "out_channel_layout", AV_CH_LAYOUT_STEREO, 0);
+    DFFmpeg_av_opt_set_sample_fmt(hdlFFmpegDDP->hdlFFmpeg, swr, "in_sample_fmt", hdlFFmpegDDP->sampleFormat, 0);
+    DFFmpeg_av_opt_set_sample_fmt(hdlFFmpegDDP->hdlFFmpeg, swr, "out_sample_fmt", AV_SAMPLE_FMT_S16, 0);
 
-    DFFmpeg_swr_init(gHdlFFmpeg, vs->swr);
-    vs->swrInit = 1;
+    DFFmpeg_swr_init(hdlFFmpegDDP->hdlFFmpeg, swr);
+    hdlFFmpegDDP->swrInit = 1;
 }
 
-static void AudioPostProcess(VideoState *vs, uint8_t *buff[])
+static void AudioPostProcess(FFmpegDDP *hdlFFmpegDDP, uint8_t *buff[])
 {
     uint8_t *output;
 
-    SwrInit(vs);
+    SwrInit(hdlFFmpegDDP);
 
-    DFFmpeg_av_samples_alloc(gHdlFFmpeg, &output, NULL, DEFAULT_CHANNELS, vs->samples, AV_SAMPLE_FMT_S16, 0);
-    DFFmpeg_swr_convert(gHdlFFmpeg, vs->swr, &output, vs->samples, (const uint8_t**)buff, vs->samples);
+    DFFmpeg_av_samples_alloc(hdlFFmpegDDP->hdlFFmpeg, &output, NULL, DEFAULT_CHANNELS, hdlFFmpegDDP->samples, AV_SAMPLE_FMT_S16, 0);
+    DFFmpeg_swr_convert(hdlFFmpegDDP->hdlFFmpeg, hdlFFmpegDDP->swr, &output, hdlFFmpegDDP->samples, (const uint8_t**)buff, hdlFFmpegDDP->samples);
 
-    DFileWrite(gPCMOutputPath, output, DEFAULT_CHANNELS * DEFAULT_SAMPLE_BITS / 8 * vs->samples);
+    DFileWrite(gPCMOutputPath, output, hdlFFmpegDDP->samples * DEFAULT_CHANNELS * DEFAULT_SAMPLE_BITS / 8);
 
-    DFFmpeg_av_freep(gHdlFFmpeg, &output);
+    DFFmpeg_av_freep(hdlFFmpegDDP->hdlFFmpeg, &output);
 }
 
 static void InitFFmpeg()
 {
-    DFFmpeg_av_register_all(gHdlFFmpeg);
+    DFFmpeg_av_register_all(FFmpegDDPInstance.hdlFFmpeg);
 }
 
 int decode_interrupt_cb(void *ctx)
@@ -97,46 +97,11 @@ int decode_interrupt_cb(void *ctx)
     return 0;
 }
 
-static int open_decoder(VideoState *vs, int stream_index)
-{
-    AVCodecContext *avctx = DFFmpeg_avcodec_alloc_context3(gHdlFFmpeg, NULL);
-    if (!avctx)
-        return AVERROR(ENOMEM);
-    vs->avctx = avctx;
-
-    AVFormatContext *ic = vs->ic;
-    int ret = DFFmpeg_avcodec_parameters_to_context(gHdlFFmpeg, avctx, ic->streams[stream_index]->codecpar);
-    if (ret < 0)
-    {
-        PrintErrMsg(ret);
-        return AVERROR(ret);
-    }
-
-    DFFmpeg_av_codec_set_pkt_timebase(gHdlFFmpeg, avctx, ic->streams[stream_index]->time_base);
-    AVCodec *codec = DFFmpeg_avcodec_find_decoder(gHdlFFmpeg, avctx->codec_id);
-    if (!codec)
-    {
-        PrintErrMsg(ret);
-        return AVERROR(ret);
-    }
-    avctx->codec_id = codec->id;
-
-    int stream_lowres = DFFmpeg_av_codec_get_max_lowres(gHdlFFmpeg, codec);
-    ret = DFFmpeg_avcodec_open2(gHdlFFmpeg, avctx, codec, NULL);
-    if (ret < 0)
-    {
-        PrintErrMsg(ret);
-        return AVERROR(ret);
-    }
-
-    AVERROR(ret);
-}
-
-static int GetDecodeOutput(VideoState *vs, AVFrame *frame)
+static int GetDecodeOutput(FFmpegDDP *hdlFFmpegDDP, AVFrame *frame)
 {
     do
     {
-        int ret = DFFmpeg_avcodec_receive_frame(gHdlFFmpeg, vs->avctx, frame);
+        int ret = DFFmpeg_avcodec_receive_frame(hdlFFmpegDDP->hdlFFmpeg, hdlFFmpegDDP->avctx, frame);
 
         if (ret == AVERROR(EAGAIN))
         {
@@ -153,16 +118,16 @@ static int GetDecodeOutput(VideoState *vs, AVFrame *frame)
                                 frame->format,
                                 frame->channel_layout);
 
-            vs->channelLayout = frame->channel_layout;
-            vs->sampleRate = frame->sample_rate;
-            vs->sampleFormat = frame->format;
-            vs->samples = frame->nb_samples;
+            hdlFFmpegDDP->channelLayout = frame->channel_layout;
+            hdlFFmpegDDP->sampleRate = frame->sample_rate;
+            hdlFFmpegDDP->sampleFormat = frame->format;
+            hdlFFmpegDDP->samples = frame->nb_samples;
 
-            AudioPostProcess(vs, frame->data);
+            AudioPostProcess(hdlFFmpegDDP, frame->data);
         }
         else
         {
-            PrintErrMsg(ret);
+            PrintErrMsg(hdlFFmpegDDP->hdlFFmpeg, ret);
             return -1;
         }
     } while (1);
@@ -170,14 +135,14 @@ static int GetDecodeOutput(VideoState *vs, AVFrame *frame)
     return 0;
 }
 
-static int Send2Decode(VideoState *vs, AVPacket *pkt)
+static int Send2Decode(FFmpegDDP *hdlFFmpegDDP, AVPacket *pkt)
 {
     do
     {
-        int ret = DFFmpeg_avcodec_send_packet(gHdlFFmpeg, vs->avctx, pkt);
+        int ret = DFFmpeg_avcodec_send_packet(hdlFFmpegDDP->hdlFFmpeg, hdlFFmpegDDP->avctx, pkt);
         if (ret == AVERROR(EAGAIN))
         {
-            GetDecodeOutput(vs, vs->frame);
+            GetDecodeOutput(hdlFFmpegDDP, hdlFFmpegDDP->frame);
             continue;
         }
         else if (ret == 0)
@@ -186,46 +151,82 @@ static int Send2Decode(VideoState *vs, AVPacket *pkt)
         }
         else if (ret < 0)
         {
-            PrintErrMsg(ret);
-            break;
+            PrintErrMsg(hdlFFmpegDDP->hdlFFmpeg, ret);
+            return -1;
         }
     } while (1);
 
     return 0;
 }
 
+static int open_decoder(FFmpegDDP *hdlFFmpegDDP, int stream_index)
+{
+    AVCodecContext *avctx = DFFmpeg_avcodec_alloc_context3(hdlFFmpegDDP->hdlFFmpeg, NULL);
+    if (!avctx)
+        return AVERROR(ENOMEM);
+    hdlFFmpegDDP->avctx = avctx;
+
+    AVFormatContext *ic = hdlFFmpegDDP->ic;
+    int ret = DFFmpeg_avcodec_parameters_to_context(hdlFFmpegDDP->hdlFFmpeg, avctx, ic->streams[stream_index]->codecpar);
+    if (ret < 0)
+    {
+        PrintErrMsg(hdlFFmpegDDP->hdlFFmpeg, ret);
+        return AVERROR(ret);
+    }
+
+    DFFmpeg_av_codec_set_pkt_timebase(hdlFFmpegDDP->hdlFFmpeg, avctx, ic->streams[stream_index]->time_base);
+    AVCodec *codec = DFFmpeg_avcodec_find_decoder(hdlFFmpegDDP->hdlFFmpeg, avctx->codec_id);
+    if (!codec)
+    {
+        PrintErrMsg(hdlFFmpegDDP->hdlFFmpeg, ret);
+        return AVERROR(ret);
+    }
+    avctx->codec_id = codec->id;
+
+    int stream_lowres = DFFmpeg_av_codec_get_max_lowres(hdlFFmpegDDP->hdlFFmpeg, codec);
+    ret = DFFmpeg_avcodec_open2(hdlFFmpegDDP->hdlFFmpeg, avctx, codec, NULL);
+    if (ret < 0)
+    {
+        PrintErrMsg(hdlFFmpegDDP->hdlFFmpeg, ret);
+        return AVERROR(ret);
+    }
+
+    AVERROR(ret);
+    return 0;
+}
+
 static void TestAudio()
 {
-    if (gHdlFFmpeg == NULL)
+    if (FFmpegDDPInstance.hdlFFmpeg == NULL)
     {
         return;
     }
 
     InitFFmpeg();
 
-    AVFormatContext *ic = DFFmpeg_avformat_alloc_context(gHdlFFmpeg);
+    AVFormatContext *ic = DFFmpeg_avformat_alloc_context(FFmpegDDPInstance.hdlFFmpeg);
     ic->interrupt_callback.callback = decode_interrupt_cb;
     ic->interrupt_callback.opaque = NULL;
-    vs.ic = ic;
+    FFmpegDDPInstance.ic = ic;
 
-    int ret = DFFmpeg_avformat_open_input(gHdlFFmpeg, &ic, gFilePath, NULL, NULL);
+    int ret = DFFmpeg_avformat_open_input(FFmpegDDPInstance.hdlFFmpeg, &ic, gFilePath, NULL, NULL);
     if (ret < 0)
     {
-        PrintErrMsg(ret);
+        PrintErrMsg(FFmpegDDPInstance.hdlFFmpeg, ret);
         return;
     }
 
-    DFFmpeg_av_format_inject_global_side_data(gHdlFFmpeg, ic);
+    DFFmpeg_av_format_inject_global_side_data(FFmpegDDPInstance.hdlFFmpeg, ic);
 
     int orig_nb_streams = ic->nb_streams;
     int st_index[AVMEDIA_TYPE_NB];
     char* wanted_stream_spec[AVMEDIA_TYPE_NB] = {0};
     memset(st_index, -1, sizeof(st_index));
 
-    ret = DFFmpeg_av_find_best_stream(gHdlFFmpeg, ic, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);
+    ret = DFFmpeg_av_find_best_stream(FFmpegDDPInstance.hdlFFmpeg, ic, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);
     if (ret < 0)
     {
-        PrintErrMsg(ret );
+        PrintErrMsg(FFmpegDDPInstance.hdlFFmpeg, ret);
         // return;
     }
     // st_index[AVMEDIA_TYPE_AUDIO] = ret;
@@ -233,36 +234,36 @@ static void TestAudio()
 
     if (st_index[AVMEDIA_TYPE_AUDIO] >= 0)
     {
-        open_decoder(&vs, st_index[AVMEDIA_TYPE_AUDIO]);
+        open_decoder(&FFmpegDDPInstance, st_index[AVMEDIA_TYPE_AUDIO]);
     }
 
-    vs.frame = DFFmpeg_av_frame_alloc(gHdlFFmpeg);
+    FFmpegDDPInstance.frame = DFFmpeg_av_frame_alloc(FFmpegDDPInstance.hdlFFmpeg);
     AVPacket pkt1, *pkt = &pkt1;
-    AVRational tb = vs.ic->streams[0]->time_base;
+    AVRational tb = FFmpegDDPInstance.ic->streams[0]->time_base;
     do
     {
-        ret = DFFmpeg_av_read_frame(gHdlFFmpeg, ic, pkt);
+        ret = DFFmpeg_av_read_frame(FFmpegDDPInstance.hdlFFmpeg, ic, pkt);
         if (ret < 0)
         {
-            PrintErrMsg(ret);
+            PrintErrMsg(FFmpegDDPInstance.hdlFFmpeg, ret);
             break;
         }
         DLog(DLOG_D, TAG, "read bytes:%d, %lld", pkt->size, 1000 * pkt->pts * tb.num / tb.den);
 
         // send to decode
-        if (Send2Decode(&vs, pkt) < 0)
+        if (Send2Decode(&FFmpegDDPInstance, pkt) < 0)
         {
             break;
         }
 
         // get decode output
-        if (GetDecodeOutput(&vs, vs.frame) < 0)
+        if (GetDecodeOutput(&FFmpegDDPInstance, FFmpegDDPInstance.frame) < 0)
         {
             break;
         }
     } while (1);
 
-    DFFmpeg_av_frame_free(gHdlFFmpeg, &vs.frame);
+    DFFmpeg_av_frame_free(FFmpegDDPInstance.hdlFFmpeg, &FFmpegDDPInstance.frame);
 }
 
 static void TestInit()
@@ -272,13 +273,13 @@ static void TestInit()
     DFileFlush(gPCMOutputPath);
 
     // load FFmpeg libraries
-    gHdlFFmpeg = DFFmpegInit();
+    FFmpegDDPInstance.hdlFFmpeg = DFFmpegInit();
 }
 
 static void TestRelease()
 {
     // deload FFmpeg libraries
-    DFFmpegRelease(&gHdlFFmpeg);
+    DFFmpegRelease(&FFmpegDDPInstance.hdlFFmpeg);
 }
 
 void TestDecoder()
