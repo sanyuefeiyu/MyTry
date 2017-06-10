@@ -3,6 +3,7 @@
 #include "DLoad.h"
 #include "DPCM.h"
 #include "DFFmpeg.h"
+#include "DAudioOut.h"
 #include "DLog.h"
 
 #define inline __inline
@@ -30,6 +31,8 @@ typedef struct FFmpegDDP
     unsigned long long swrChannelLayout;
 
     DPCM pcm;
+
+    void *dAO;
 } FFmpegDDP;
 
 static void PrintErrMsg(void *hdlFFmpeg, int err)
@@ -216,6 +219,8 @@ int HA_LIBFFmpegDDPDecInit(void **phDecoder, const void *pstOpenParam)
 
     *phDecoder = (void*)hdlFFmpegDDP;
 
+    hdlFFmpegDDP->dAO = DAOInit();
+
     return 0;
 }
 
@@ -248,6 +253,8 @@ int HA_LIBFFmpegDDPDecDeInit(void *hDecoder)
 
     // deload FFmpeg libraries
     DFFmpegRelease(&hdlFFmpegDDP->hdlFFmpeg);
+
+    DAORelease(&hdlFFmpegDDP->dAO);
 
     // release memory
     free(hdlFFmpegDDP);
@@ -283,6 +290,8 @@ int HA_LIBFFmpegDDPDecDecodeFrame(void *hDecoder, unsigned char *buff, unsigned 
     return 0;
 }
 
+static int countInit = 0;
+
 void WritePCM(void *hDecoder, const char *path)
 {
     FFmpegDDP *hdlFFmpegDDP = NULL;
@@ -296,6 +305,17 @@ void WritePCM(void *hDecoder, const char *path)
     hdlFFmpegDDP = (FFmpegDDP*)hDecoder;
 
     DFileWrite(path, hdlFFmpegDDP->pcm.data, hdlFFmpegDDP->pcm.size);
+
+    if (countInit <= 0)
+    {
+        AudioAttr audioAttr;
+        audioAttr.sampleRate = hdlFFmpegDDP->sampleRate;
+        audioAttr.channels = DEFAULT_CHANNELS;
+        audioAttr.sampleBits = DEFAULT_SAMPLE_BITS;
+        DAOOpen(hdlFFmpegDDP->dAO, &audioAttr);
+        countInit++;
+    }
+    DAOWrite(hdlFFmpegDDP->dAO, &hdlFFmpegDDP->pcm);
 }
 
 // HI_HA_DECODE_S ha_audio_decode_entry = {

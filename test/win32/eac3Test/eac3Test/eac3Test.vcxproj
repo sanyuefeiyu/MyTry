@@ -44,13 +44,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\..\..\..\src\base;$(SolutionDir)\..\..\..\src\utils\log;$(SolutionDir)\..\..\..\src\utils\file;$(SolutionDir)\..\..\..\src\utils\lib;$(SolutionDir)\..\..\..\src\utils\pcm;$(SolutionDir)\..\..\..\src\utils\parser\eac3;$(SolutionDir)\..\..\..\src\utils\bitstream;$(SolutionDir)\..\..\..\src\utils\misc;$(SolutionDir)\..\..\..\src\utils\ffmpeg;$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\..\..\..\src\base;$(SolutionDir)\..\..\..\src\utils\log;$(SolutionDir)\..\..\..\src\utils\file;$(SolutionDir)\..\..\..\src\utils\lib;$(SolutionDir)\..\..\..\src\utils\thread;$(SolutionDir)\..\..\..\src\utils\pcm;$(SolutionDir)\..\..\..\src\utils\audio;$(SolutionDir)\..\..\..\src\utils\parser\eac3;$(SolutionDir)\..\..\..\src\utils\bitstream;$(SolutionDir)\..\..\..\src\utils\misc;$(SolutionDir)\..\..\..\src\utils\ffmpeg;$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy $(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\win32\bin\*.dll $(OutDir) /B /Y
@@ -83,6 +83,7 @@ xcopy $(SolutionDir)\..\..\res\*.ac3 $(OutDir) /B /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\src\utils\audio\win32\DAudioOutWin32.cpp" />
     <ClCompile Include="..\..\..\..\src\utils\bitstream\DBitStream.cpp" />
     <ClCompile Include="..\..\..\..\src\utils\ffmpeg\win32\DFFmpegWin32.c" />
     <ClCompile Include="..\..\..\..\src\utils\file\DFile.cpp" />
@@ -92,6 +93,7 @@ xcopy $(SolutionDir)\..\..\res\*.ac3 $(OutDir) /B /Y</Command>
     <ClCompile Include="..\..\..\..\src\utils\misc\win32\DMiscWin32.cpp" />
     <ClCompile Include="..\..\..\..\src\utils\parser\eac3\DParseEac3.cpp" />
     <ClCompile Include="..\..\..\..\src\utils\pcm\DPCM.c" />
+    <ClCompile Include="..\..\..\..\src\utils\thread\win32\DThreadWin32.cpp" />
     <ClCompile Include="..\..\..\src\eac3Decoder.c" />
     <ClCompile Include="..\..\..\src\test2.c" />
     <ClCompile Include="..\..\..\src\testGif.c" />
@@ -100,6 +102,7 @@ xcopy $(SolutionDir)\..\..\res\*.ac3 $(OutDir) /B /Y</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\base\DExport.h" />
+    <ClInclude Include="..\..\..\..\src\utils\audio\DAudioOut.h" />
     <ClInclude Include="..\..\..\..\src\utils\bitstream\DBitStream.h" />
     <ClInclude Include="..\..\..\..\src\utils\ffmpeg\DFFmpeg.h" />
     <ClInclude Include="..\..\..\..\src\utils\file\DFile.h" />
@@ -109,6 +112,7 @@ xcopy $(SolutionDir)\..\..\res\*.ac3 $(OutDir) /B /Y</Command>
     <ClInclude Include="..\..\..\..\src\utils\misc\DMisc.h" />
     <ClInclude Include="..\..\..\..\src\utils\parser\eac3\DParseEac3.h" />
     <ClInclude Include="..\..\..\..\src\utils\pcm\DPCM.h" />
+    <ClInclude Include="..\..\..\..\src\utils\thread\DThread.h" />
     <ClInclude Include="Globalconfig.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

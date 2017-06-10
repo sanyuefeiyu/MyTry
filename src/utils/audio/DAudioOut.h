@@ -15,8 +15,8 @@ extern "C" {
 
 DEXPORT void* DAOInit();
 DEXPORT void DAORelease(void **ao);
-DEXPORT void DAOOpen(void *ao);
-DEXPORT void DAWrite(void *ao, DPCM *pcm);
+DEXPORT int DAOOpen(void *ao, AudioAttr *audioAttr);
+DEXPORT int DAOWrite(void *ao, DPCM *pcm);
 DEXPORT void DAOClose(void *ao);
 
 #ifdef __cplusplus

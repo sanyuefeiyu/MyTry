@@ -57,6 +57,18 @@
     <Filter Include="src\utils\parser\eac3">
       <UniqueIdentifier>{912ef374-8c9b-4620-8155-f18c891c81d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\utils\thread">
+      <UniqueIdentifier>{74452d34-1874-4c95-a927-4c1eec11766e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils\thread\win32">
+      <UniqueIdentifier>{dc4c7db3-e24f-4cec-94ef-d6a0dc7393a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils\audio">
+      <UniqueIdentifier>{ec15fc9a-808e-4916-9cee-55fe06d211c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils\audio\win32">
+      <UniqueIdentifier>{74f57f34-5a35-48ac-b18e-407f6897eab3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -101,6 +113,12 @@
     <ClCompile Include="..\..\..\..\src\utils\parser\eac3\DParseEac3.cpp">
       <Filter>src\utils\parser\eac3</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\utils\thread\win32\DThreadWin32.cpp">
+      <Filter>src\utils\thread\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\utils\audio\win32\DAudioOutWin32.cpp">
+      <Filter>src\utils\audio\win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globalconfig.h">
@@ -135,6 +153,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\utils\parser\eac3\DParseEac3.h">
       <Filter>src\utils\parser\eac3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\utils\thread\DThread.h">
+      <Filter>src\utils\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\utils\audio\DAudioOut.h">
+      <Filter>src\utils\audio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
