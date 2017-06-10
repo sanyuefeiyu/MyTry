@@ -17,10 +17,10 @@ DEXPORT void DMutexRelease(void **mutex);
 DEXPORT void DMutexLock(void *mutex);
 DEXPORT void DMutexunLock(void *mutex);
 
-DEXPORT void* DSemaphoreInit();
-DEXPORT void DSemaphoreRelease(void **semaphore);
-DEXPORT void DSemaphoreWait(void *semaphore);
-DEXPORT void DSemaphoreSignal(void *semaphore);
+DEXPORT void* DConditionVaribleInit();
+DEXPORT void DConditionVaribleRelease(void **cv);
+DEXPORT void DConditionVaribleWait(void *cv, void *mutex);
+DEXPORT void DConditionVaribleSignal(void *cv);
 
 DEXPORT void DSleep(unsigned int milliseconds);
 

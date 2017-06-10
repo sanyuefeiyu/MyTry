@@ -8,7 +8,7 @@
 
 typedef struct
 {
-    HANDLE hMutex;
+    CRITICAL_SECTION cs;
 } DMutex;
 
 DEXPORT void* DMutexInit()
@@ -17,13 +17,7 @@ DEXPORT void* DMutexInit()
     if (dMutex == NULL)
         return NULL;
 
-    dMutex->hMutex = CreateMutex(NULL, FALSE, NULL);
-    if (dMutex->hMutex == NULL)
-    {
-        DMiscPrintError();
-        free(dMutex);
-        return NULL;
-    }
+    InitializeCriticalSection(&dMutex->cs);
 
     return dMutex;
 }
@@ -34,7 +28,6 @@ DEXPORT void DMutexRelease(void **mutex)
         return;
 
     DMutex *dMutex = (DMutex*)(*mutex);
-    CloseHandle(dMutex->hMutex);
     free(dMutex);
     *mutex = NULL;
 }
@@ -45,7 +38,7 @@ DEXPORT void DMutexLock(void *mutex)
         return;
 
     DMutex *dMutex = (DMutex*)mutex;
-    WaitForSingleObject(dMutex->hMutex, INFINITE);
+    EnterCriticalSection(&dMutex->cs);
 }
 
 DEXPORT void DMutexunLock(void *mutex)
@@ -54,58 +47,52 @@ DEXPORT void DMutexunLock(void *mutex)
         return;
 
     DMutex *dMutex = (DMutex*)mutex;
-    ReleaseMutex(dMutex->hMutex);
+    LeaveCriticalSection(&dMutex->cs);
 }
 
 typedef struct
 {
-    HANDLE hSemaphore;
-} DSemaphore;
+    CONDITION_VARIABLE cv;
+} DConditionVarible;
 
-DEXPORT void* DSemaphoreInit()
+DEXPORT void* DConditionVaribleInit()
 {
-    DSemaphore *dSemaphore = (DSemaphore*)malloc(sizeof(DSemaphore));
-    if (dSemaphore == NULL)
+    DConditionVarible *dCV = (DConditionVarible*)malloc(sizeof(DConditionVarible));
+    if (dCV == NULL)
         return NULL;
 
-    dSemaphore->hSemaphore = CreateSemaphore(NULL, 0, 1, NULL);
-    if (dSemaphore->hSemaphore == NULL)
-    {
-        DMiscPrintError();
-        free(dSemaphore);
-        return NULL;
-    }
+    InitializeConditionVariable(&dCV->cv);
 
-    return dSemaphore;
+    return dCV;
 }
 
-DEXPORT void DSemaphoreRelease(void **semaphore)
+DEXPORT void DConditionVaribleRelease(void **cv)
 {
-    if (semaphore == NULL || *semaphore == NULL)
+    if (cv == NULL || *cv == NULL)
         return;
 
-    DSemaphore *dSemaphore = (DSemaphore*)(*semaphore);
-    CloseHandle(dSemaphore->hSemaphore);
-    free(dSemaphore);
-    *semaphore = NULL;
+    DConditionVarible *dCV = (DConditionVarible*)(*cv);
+    free(dCV);
+    *cv = NULL;
 }
 
-DEXPORT void DSemaphoreWait(void *semaphore)
+DEXPORT void DConditionVaribleWait(void *cv, void *mutex)
 {
-    if (semaphore == NULL)
+    if (cv == NULL || mutex == NULL)
         return;
 
-    DSemaphore *dSemaphore = (DSemaphore*)semaphore;
-    WaitForSingleObject(dSemaphore->hSemaphore, INFINITE);
+    DConditionVarible *dCV = (DConditionVarible*)cv;
+    DMutex *dMutex = (DMutex*)mutex;
+    SleepConditionVariableCS(&dCV->cv, &dMutex->cs, INFINITE);
 }
 
-DEXPORT void DSemaphoreSignal(void *semaphore)
+DEXPORT void DConditionVaribleSignal(void *cv)
 {
-    if (semaphore == NULL)
+    if (cv == NULL)
         return;
 
-    DSemaphore *dSemaphore = (DSemaphore*)semaphore;
-    ReleaseSemaphore(dSemaphore->hSemaphore, 1, NULL);
+    DConditionVarible *dCV = (DConditionVarible*)cv;
+    WakeConditionVariable(&dCV->cv);
 }
 
 DEXPORT void DSleep(unsigned int milliseconds)
