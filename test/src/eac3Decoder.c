@@ -77,7 +77,11 @@ static void AudioPostProcess(FFmpegDDP *hdlFFmpegDDP, uint8_t *buff[])
     DFFmpeg_av_samples_alloc(hdlFFmpegDDP->hdlFFmpeg, &output, NULL, DEFAULT_CHANNELS, hdlFFmpegDDP->samples, AV_SAMPLE_FMT_S16, 0);
     DFFmpeg_swr_convert(hdlFFmpegDDP->hdlFFmpeg, hdlFFmpegDDP->swr, &output, hdlFFmpegDDP->samples, (const uint8_t**)buff, hdlFFmpegDDP->samples);
 
-    DPCMAdd(&hdlFFmpegDDP->pcm, (char*)output, hdlFFmpegDDP->samples * DEFAULT_CHANNELS * DEFAULT_SAMPLE_BITS / 8);
+    AudioAttr audioAttr;
+    audioAttr.sampleRate = hdlFFmpegDDP->sampleRate;
+    audioAttr.channels = DEFAULT_CHANNELS;
+    audioAttr.sampleBits = DEFAULT_SAMPLE_BITS;
+    DPCMAdd(&hdlFFmpegDDP->pcm, (char*)output, hdlFFmpegDDP->samples * DEFAULT_CHANNELS * DEFAULT_SAMPLE_BITS / 8, &audioAttr);
 
     DFFmpeg_av_freep(hdlFFmpegDDP->hdlFFmpeg, &output);
 }
@@ -228,7 +232,7 @@ int HA_LIBFFmpegDDPDecDeInit(void *hDecoder)
     hdlFFmpegDDP = (FFmpegDDP*)hDecoder;
 
     // release PCM
-    DPCMClean(&hdlFFmpegDDP->pcm);
+    DPCMReset(&hdlFFmpegDDP->pcm);
 
     // release SWR
     SwrRelease(hdlFFmpegDDP);
@@ -261,7 +265,7 @@ int HA_LIBFFmpegDDPDecDecodeFrame(void *hDecoder, unsigned char *buff, unsigned 
     }
 
     hdlFFmpegDDP = (FFmpegDDP*)hDecoder;
-    DPCMReset(&hdlFFmpegDDP->pcm);
+    DPCMClean(&hdlFFmpegDDP->pcm);
 
     AVPacket pkt1, *pkt = &pkt1;
     memset(pkt, 0, sizeof(AVPacket));

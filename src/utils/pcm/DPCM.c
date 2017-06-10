@@ -5,11 +5,11 @@
 
 #define TAG     "DPCM"
 
-#define MAX_PCM_SIZE    (10*1024*1024)
+#define MAX_PCM_SIZE    (1*1024*1024)
 
-DEXPORT void DPCMAdd(DPCM *pcm, char *buff, unsigned int size)
+DEXPORT void DPCMAdd(DPCM *pcm, unsigned char *buf, unsigned int size, AudioAttr *audioAttr)
 {
-    if (pcm == NULL || buff == NULL || size <=0)
+    if (pcm == NULL || buf == NULL || size <= 0 || audioAttr == NULL)
     {
         return;
     }
@@ -51,18 +51,12 @@ DEXPORT void DPCMAdd(DPCM *pcm, char *buff, unsigned int size)
     }
 
     // copy buffer to PCM
-    memcpy(pcm->data + pcm->size, buff, size);
+    memcpy(pcm->data + pcm->size, buf, size);
     pcm->size += size;
-}
 
-DEXPORT void DPCMReset(DPCM *pcm)
-{
-    if (pcm == NULL)
-    {
-        return;
-    }
-
-    pcm->size = 0;
+    pcm->audioAttr.sampleRate = audioAttr->sampleRate;
+    pcm->audioAttr.channels = audioAttr->channels;
+    pcm->audioAttr.sampleBits = audioAttr->sampleBits;
 }
 
 DEXPORT void DPCMClean(DPCM *pcm)
@@ -72,7 +66,20 @@ DEXPORT void DPCMClean(DPCM *pcm)
         return;
     }
 
-    // clean buffer
+    pcm->size = 0;
+    pcm->audioAttr.sampleRate = 0;
+    pcm->audioAttr.channels = 0;
+    pcm->audioAttr.sampleBits = 0;
+}
+
+DEXPORT void DPCMReset(DPCM *pcm)
+{
+    if (pcm == NULL)
+    {
+        return;
+    }
+
+    // reset buffer
     if (pcm->data != NULL)
     {
         free(pcm->data);
@@ -80,4 +87,7 @@ DEXPORT void DPCMClean(DPCM *pcm)
     }
     pcm->capacity = 0;
     pcm->size = 0;
+    pcm->audioAttr.sampleRate = 0;
+    pcm->audioAttr.channels = 0;
+    pcm->audioAttr.sampleBits = 0;
 }

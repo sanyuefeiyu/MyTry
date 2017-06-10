@@ -8,20 +8,29 @@
 
 #include "DExport.h"
 
-typedef struct DPCM
+typedef struct
 {
-    char *data;
+    unsigned int sampleRate;
+    unsigned int channels;
+    unsigned int sampleBits;
+} AudioAttr;
+
+typedef struct
+{
+    unsigned char *data;
     unsigned int capacity;
     unsigned int size;
+
+    AudioAttr audioAttr;
 } DPCM;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-DEXPORT void DPCMAdd(DPCM *pcm, char *buff, unsigned int size);
-DEXPORT void DPCMReset(DPCM *pcm);
+DEXPORT void DPCMAdd(DPCM *pcm, unsigned char *buf, unsigned int size, AudioAttr *audioAttr);
 DEXPORT void DPCMClean(DPCM *pcm);
+DEXPORT void DPCMReset(DPCM *pcm);
 
 #ifdef __cplusplus
 }
