@@ -11,6 +11,7 @@
 typedef enum
 {
     AS_NONE,
+    AS_OPENING,
     AS_OPENED,
     AS_CLOSED
 } AudioState;
@@ -39,17 +40,20 @@ static void CALLBACK WaveOutProc(HWAVEOUT hwo, UINT uMsg, DWORD dwInstance, DWOR
     switch (uMsg)
     {
     case WOM_OPEN:
-        DLog(DLOG_D, TAG, "WaveOutProc, uMsg=%#X, WOM_OPEN", uMsg);
+        DLog(DLOG_D, TAG, "WaveOutProc, before uMsg=%#X, WOM_OPEN", uMsg);
         dAO->as = AS_OPENED;
+        DConditionVaribleSignal(dAO->cv);
+        DLog(DLOG_D, TAG, "WaveOutProc, after uMsg=%#X, WOM_OPEN", uMsg);
         break;
     case WOM_CLOSE:
         DLog(DLOG_D, TAG, "WaveOutProc, uMsg=%#X, WOM_CLOSE", uMsg);
         dAO->as = AS_CLOSED;
         break;
     case WOM_DONE:
-        DLog(DLOG_D, TAG, "WaveOutProc, uMsg=%#X, WOM_DONE", uMsg);
+        DLog(DLOG_D, TAG, "WaveOutProc, before uMsg=%#X, WOM_DONE", uMsg);
         dAO->bufferCount--;
         DConditionVaribleSignal(dAO->cv);
+        DLog(DLOG_D, TAG, "WaveOutProc, after uMsg=%#X, WOM_DONE", uMsg);
         break;
     default:
         DLog(DLOG_D, TAG, "WaveOutProc, uMsg=%#X, unknown", uMsg);
@@ -61,35 +65,9 @@ static void CALLBACK WaveOutProc(HWAVEOUT hwo, UINT uMsg, DWORD dwInstance, DWOR
     return;
 }
 
-DEXPORT void* DAOInit()
+static int WaveOutOpen(DAO *dAO, AudioAttr *audioAttr)
 {
-    DAO *dAO = (DAO*)malloc(sizeof(DAO));
-
-    dAO->mutex = DMutexInit();
-    dAO->cv = DConditionVaribleInit();
-    dAO->as = AS_NONE;
-    dAO->bufferCount = 0;
-
-    return dAO;
-}
-
-DEXPORT void DAORelease(void **ao)
-{
-    if (ao == NULL || *ao == NULL)
-        return;
-
-    DAO *dAO = (DAO*)(*ao);
-
-    DMutexRelease(&dAO->mutex);
-    DConditionVaribleRelease(&dAO->cv);
-}
-
-DEXPORT int DAOOpen(void *ao, AudioAttr *audioAttr)
-{
-    if (ao == NULL || audioAttr == NULL)
-        return -1;
-
-    DAO *dAO = (DAO*)ao;
+    DLog(DLOG_D, TAG, "WaveOutOpen");
 
     WAVEFORMATEX wfx;
     ZeroMemory(&wfx,sizeof(WAVEFORMATEX));
@@ -108,22 +86,26 @@ DEXPORT int DAOOpen(void *ao, AudioAttr *audioAttr)
         return -1;
     }
 
+    DMutexLock(dAO->mutex);
+    dAO->as = AS_OPENING;
     if (waveOutOpen(&dAO->hWaveOut, WAVE_MAPPER, &wfx, (DWORD)&WaveOutProc, (DWORD)dAO, CALLBACK_FUNCTION))
     {
         DMiscPrintError();
+        DMutexunLock(dAO->mutex);
         return -1;
     }
-
+    if (dAO->as == AS_OPENING)
+    {
+        DLog(DLOG_D, TAG, "before wait for open");
+        DConditionVaribleWait(dAO->cv, dAO->mutex);
+        DLog(DLOG_D, TAG, "after wait for open");
+    }
+    DMutexunLock(dAO->mutex);
     return 0;
 }
 
-DEXPORT int DAOWrite(void *ao, DPCM *pcm)
+static int WaveOutWrite(DAO *dAO, DPCM *pcm)
 {
-    if (ao == NULL || pcm == NULL)
-        return -1;
-
-    DAO *dAO = (DAO*)ao;
-
     LPWAVEHDR pWaveHeader = (LPWAVEHDR)malloc(sizeof(WAVEHDR));
     memset(pWaveHeader, 0, sizeof(WAVEHDR));
     pWaveHeader->lpData = (LPSTR)malloc(pcm->size);
@@ -136,7 +118,7 @@ DEXPORT int DAOWrite(void *ao, DPCM *pcm)
         return -1;
     }
     memcpy(pWaveHeader->lpData, pcm->data, pcm->size);
- 
+
     if (waveOutPrepareHeader(dAO->hWaveOut, pWaveHeader, sizeof(WAVEHDR)))
     {
         free(pWaveHeader->lpData);
@@ -146,7 +128,7 @@ DEXPORT int DAOWrite(void *ao, DPCM *pcm)
 
     DMutexLock(dAO->mutex);
 
-    DLog(DLOG_D, TAG, "waveOutWrite");
+    DLog(DLOG_D, TAG, "waveOutWrite, size=%u", pcm->size);
     if (waveOutWrite(dAO->hWaveOut, pWaveHeader, sizeof(WAVEHDR)))
     {
         free(pWaveHeader->lpData);
@@ -157,14 +139,74 @@ DEXPORT int DAOWrite(void *ao, DPCM *pcm)
     dAO->bufferCount++;
     if (dAO->bufferCount > 3)
     {
+        DLog(DLOG_D, TAG, "before wait and bufferCount=%d", dAO->bufferCount);
         DConditionVaribleWait(dAO->cv, dAO->mutex);
+        DLog(DLOG_D, TAG, "after wait and bufferCount=%d", dAO->bufferCount);
     }
     DMutexunLock(dAO->mutex);
 
     return 0;
 }
 
+DEXPORT void* DAOInit()
+{
+    DLog(DLOG_D, TAG, "DAOInit");
+
+    DAO *dAO = (DAO*)calloc(1, sizeof(DAO));
+
+    dAO->mutex = DMutexInit();
+    dAO->cv = DConditionVaribleInit();
+    dAO->as = AS_NONE;
+    dAO->bufferCount = 0;
+
+    return dAO;
+}
+
+DEXPORT void DAORelease(void **ao)
+{
+    DLog(DLOG_D, TAG, "DAORelease");
+
+    if (ao == NULL || *ao == NULL)
+        return;
+
+    DAO *dAO = (DAO*)(*ao);
+
+    DMutexRelease(&dAO->mutex);
+    DConditionVaribleRelease(&dAO->cv);
+    free(dAO);
+    *ao = NULL;
+}
+
+DEXPORT int DAOOpen(void *ao, AudioAttr *audioAttr)
+{
+    DLog(DLOG_D, TAG, "DAOOpen");
+
+    if (ao == NULL || audioAttr == NULL)
+        return -1;
+
+    DAO *dAO = (DAO*)ao;
+    DMutexLock(dAO->mutex);
+    if (dAO->as == AS_OPENING)
+    {
+        DMutexunLock(dAO->mutex);
+        return -1;
+    }
+    DMutexunLock(dAO->mutex);
+
+    return WaveOutOpen(dAO, audioAttr);
+}
+
+DEXPORT int DAOWrite(void *ao, DPCM *pcm)
+{
+    if (ao == NULL || pcm == NULL)
+        return -1;
+
+    DAO *dAO = (DAO*)ao;
+
+    return WaveOutWrite(dAO, pcm);
+}
+
 DEXPORT void DAOClose(void *ao)
 {
-
+    DLog(DLOG_D, TAG, "DAOClose");
 }
