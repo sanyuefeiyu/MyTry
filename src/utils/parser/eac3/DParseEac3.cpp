@@ -79,7 +79,7 @@ DEXPORT int DParseEac3(const unsigned char *buf, int size, SyncFrame *frame)
 
             frame->frameSize = FrameSizeCodeTable[frame->syncInfo.frmsizecod][frame->syncInfo.fscod] * 2;
             frame->bitrate = BitRateTable[frame->syncInfo.frmsizecod];
-            DLog(DLOG_D, TAG, "get bitrate attr is %d, %d, %d", frame->sampleRate, frame->frameSize, frame->bitrate);
+            // DLog(DLOG_D, TAG, "get bitstream attr is %d, %d, %d", frame->sampleRate, frame->frameSize, frame->bitrate);
 
             // no enough buffer
             if (DBitStreamGetLeftSize(bs) + 6 < frame->frameSize)
@@ -113,7 +113,7 @@ DEXPORT int DParseEac3(const unsigned char *buf, int size, SyncFrame *frame)
             }
             frame->numberBlock = NumberofAudioBlocksPerSyncframe[frame->ebsi.numblkscod];
             frame->bitrate = 8LL * frame->frameSize * frame->sampleRate / (frame->numberBlock * 256);
-            DLog(DLOG_D, TAG, "get bitrate attr is %d, %d, %d", frame->sampleRate, frame->frameSize, frame->bitrate);
+            // DLog(DLOG_D, TAG, "get bitstream attr is %d, %d, %d", frame->sampleRate, frame->frameSize, frame->bitrate);
 
             // no enough buffer
             if (DBitStreamGetLeftSize(bs) + 6 < frame->frameSize)
