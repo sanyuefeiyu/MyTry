@@ -69,6 +69,12 @@
     <Filter Include="src\utils\audio\win32">
       <UniqueIdentifier>{74f57f34-5a35-48ac-b18e-407f6897eab3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\utils\time">
+      <UniqueIdentifier>{a8603d99-b69c-4bbf-ac3a-250841115012}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils\time\win32">
+      <UniqueIdentifier>{1fd90642-b656-4586-8146-5927e44ddbcb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -119,6 +125,9 @@
     <ClCompile Include="..\..\..\..\src\utils\audio\win32\DAudioOutWin32.cpp">
       <Filter>src\utils\audio\win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\utils\time\win32\DWin32Time.cpp">
+      <Filter>src\utils\time\win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globalconfig.h">
@@ -159,6 +168,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\utils\audio\DAudioOut.h">
       <Filter>src\utils\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\utils\time\DTime.h">
+      <Filter>src\utils\time</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

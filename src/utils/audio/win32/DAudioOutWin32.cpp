@@ -4,6 +4,7 @@
 #include "DMisc.h"
 #include "DThread.h"
 #include "DAudioOut.h"
+#include "DTime.h"
 #include "DLog.h"
 
 #define TAG     "DAO"
@@ -50,11 +51,14 @@ static void CALLBACK WaveOutProc(HWAVEOUT hwo, UINT uMsg, DWORD dwInstance, DWOR
         dAO->as = AS_CLOSED;
         break;
     case WOM_DONE:
+    {
+        long long start = DTimeGetTick();
         DLog(DLOG_D, TAG, "WaveOutProc, before uMsg=%#X, WOM_DONE", uMsg);
         dAO->bufferCount--;
         DConditionVaribleSignal(dAO->cv);
-        DLog(DLOG_D, TAG, "WaveOutProc, after uMsg=%#X, WOM_DONE", uMsg);
+        DLog(DLOG_D, TAG, "WaveOutProc, after uMsg=%#X, WOM_DONE, diff=%lld", uMsg, DTimeGetTick() - start);
         break;
+    }
     default:
         DLog(DLOG_D, TAG, "WaveOutProc, uMsg=%#X, unknown", uMsg);
         break;
