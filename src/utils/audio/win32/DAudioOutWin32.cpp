@@ -7,7 +7,8 @@
 #include "DTime.h"
 #include "DLog.h"
 
-#define TAG     "DAO"
+#define TAG                 "DAO"
+#define MAX_BUFFER_COUNT    10
 
 typedef enum
 {
@@ -139,7 +140,7 @@ static int WaveOutWrite(DAO *dAO, DPCM *pcm)
 
     DMutexLock(dAO->mutex);
     dAO->bufferCount++;
-    if (dAO->bufferCount > 3)
+    if (dAO->bufferCount >= MAX_BUFFER_COUNT)
     {
         long long start = DTimeGetTick();
         DConditionVaribleWait(dAO->cv, dAO->mutex);
