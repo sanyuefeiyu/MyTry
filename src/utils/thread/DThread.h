@@ -8,9 +8,15 @@
 
 #include "DExport.h"
 
+typedef int (*DThreadProc)(void *param);
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+DEXPORT void* DThreadInit(DThreadProc proc, void *param);
+DEXPORT void DThreadJoin(void *thread);
+DEXPORT void DThreadRelease(void **thread);
 
 DEXPORT void* DMutexInit();
 DEXPORT void DMutexRelease(void **mutex);

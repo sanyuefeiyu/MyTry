@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "DThread.h"
 
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
@@ -10,13 +11,22 @@ void TestDecoder();
 void TestDecoder2();
 void TestGif();
 
-int main(int argc, char **argv)
+int Test(void *param)
 {
     // TestDecoder();
 
     TestDecoder2();
 
     // TestGif();
+
+    return 0;
+}
+
+int main(int argc, char **argv)
+{
+    void *thread = DThreadInit(Test, NULL);
+    DThreadJoin(thread);
+    DThreadRelease(&thread);
 
     char *test = malloc(10);
     _CrtDumpMemoryLeaks(); 

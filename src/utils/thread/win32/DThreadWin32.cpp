@@ -8,6 +8,61 @@
 
 typedef struct
 {
+    DWORD id;
+    HANDLE hThread;
+
+    DThreadProc proc;
+    void *param;
+} DThread;
+
+static DWORD WINAPI ThreadProc(PVOID p)
+{
+    if (p == NULL)
+        return -1;
+
+    DThread *dThread = (DThread*)p;
+    return dThread->proc(dThread->param);
+}
+
+DEXPORT void* DThreadInit(DThreadProc proc, void *param)
+{
+    if (proc == NULL)
+        return NULL;
+
+    DThread *dThread = (DThread*)calloc(1, sizeof(DThread));
+    if (dThread == NULL)
+        return NULL;
+
+    dThread->proc = proc;
+    dThread->param = param;
+    dThread->hThread = CreateThread (NULL, 0, ThreadProc, (PVOID)dThread, 0, &dThread->id);
+
+    return dThread;
+}
+
+DEXPORT void DThreadJoin(void *thread)
+{
+    if (thread == NULL)
+        return;
+
+    DThread *dThread = (DThread*)thread;
+    WaitForSingleObject(dThread->hThread, INFINITE);
+}
+
+DEXPORT void DThreadRelease(void **thread)
+{
+    if (thread == NULL || *thread == NULL)
+        return;
+
+    DThread *dThread = (DThread*)(*thread);
+    CloseHandle(dThread->hThread);
+    free(dThread);
+    *thread = NULL;
+
+}
+
+typedef struct
+{
     CRITICAL_SECTION cs;
 } DMutex;
 
