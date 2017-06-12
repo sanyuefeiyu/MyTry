@@ -6,7 +6,7 @@
 
 void DLogOutput(DLogMode logMode, DLogLevel level, const char *tag, const char *buf);
 
-static DLogMode gLogMode = DLOG_ALL;
+static DLogMode gLogMode = DLOG_CONSOLE;
 
 DEXPORT void DLogOutputMode(DLogMode logMode)
 {

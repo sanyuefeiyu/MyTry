@@ -44,7 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\..\..\..\src\base;$(SolutionDir)\..\..\..\src\utils\log;$(SolutionDir)\..\..\..\src\utils\file;$(SolutionDir)\..\..\..\src\utils\lib;$(SolutionDir)\..\..\..\src\utils\thread;$(SolutionDir)\..\..\..\src\utils\pcm;$(SolutionDir)\..\..\..\src\utils\audio;$(SolutionDir)\..\..\..\src\utils\parser\eac3;$(SolutionDir)\..\..\..\src\utils\bitstream;$(SolutionDir)\..\..\..\src\utils\misc;$(SolutionDir)\..\..\..\src\utils\time;$(SolutionDir)\..\..\..\src\utils\ffmpeg;$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\..\..\..\src\base;$(SolutionDir)\..\..\..\src\utils\log;$(SolutionDir)\..\..\..\src\utils\file;$(SolutionDir)\..\..\..\src\utils\lib;$(SolutionDir)\..\..\..\src\utils\thread;$(SolutionDir)\..\..\..\src\utils\time;$(SolutionDir)\..\..\..\src\utils\misc;$(SolutionDir)\..\..\..\src\utils\bitstream;$(SolutionDir)\..\..\..\src\utils\audio;$(SolutionDir)\..\..\..\src\utils\pcm;$(SolutionDir)\..\..\..\src\utils\parser\eac3;$(SolutionDir)\..\..\..\src\utils\ffmpeg;$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -65,7 +65,7 @@ xcopy $(SolutionDir)\..\..\res\*.ac3 $(OutDir) /B /Y</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\..\..\..\src\base;$(SolutionDir)\..\..\..\src\utils\log;$(SolutionDir)\..\..\..\src\utils\file;$(SolutionDir)\..\..\..\src\utils\lib;$(SolutionDir)\..\..\..\src\utils\pcm;$(SolutionDir)\..\..\..\src\utils\parser\eac3;$(SolutionDir)\..\..\..\src\utils\bitstream;$(SolutionDir)\..\..\..\src\utils\misc;$(SolutionDir)\..\..\..\src\utils\ffmpeg;$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\..\..\..\src\base;$(SolutionDir)\..\..\..\src\utils\log;$(SolutionDir)\..\..\..\src\utils\file;$(SolutionDir)\..\..\..\src\utils\lib;$(SolutionDir)\..\..\..\src\utils\thread;$(SolutionDir)\..\..\..\src\utils\time;$(SolutionDir)\..\..\..\src\utils\misc;$(SolutionDir)\..\..\..\src\utils\bitstream;$(SolutionDir)\..\..\..\src\utils\audio;$(SolutionDir)\..\..\..\src\utils\pcm;$(SolutionDir)\..\..\..\src\utils\parser\eac3;$(SolutionDir)\..\..\..\src\utils\ffmpeg;$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -73,7 +73,7 @@ xcopy $(SolutionDir)\..\..\res\*.ac3 $(OutDir) /B /Y</Command>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)\..\..\..\3rd\FFmpeg_3_2_4\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>

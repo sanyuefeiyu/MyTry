@@ -41,7 +41,6 @@ static void CALLBACK WaveOutProc(HWAVEOUT hwo, UINT uMsg, DWORD dwInstance, DWOR
     switch (uMsg)
     {
     case WOM_OPEN:
-        DLog(DLOG_D, TAG, "WaveOutProc, before uMsg=%#X, WOM_OPEN", uMsg);
         dAO->as = AS_OPENED;
         DConditionVaribleSignal(dAO->cv);
         DLog(DLOG_D, TAG, "WaveOutProc, after uMsg=%#X, WOM_OPEN", uMsg);
@@ -53,10 +52,9 @@ static void CALLBACK WaveOutProc(HWAVEOUT hwo, UINT uMsg, DWORD dwInstance, DWOR
     case WOM_DONE:
     {
         long long start = DTimeGetTick();
-        DLog(DLOG_D, TAG, "WaveOutProc, before uMsg=%#X, WOM_DONE", uMsg);
         dAO->bufferCount--;
         DConditionVaribleSignal(dAO->cv);
-        DLog(DLOG_D, TAG, "WaveOutProc, after uMsg=%#X, WOM_DONE, diff=%lld", uMsg, DTimeGetTick() - start);
+        DLog(DLOG_D, TAG, "WaveOutProc, after uMsg=%#X, WOM_DONE, bufferCount=%d, diff=%lld", uMsg, dAO->bufferCount, DTimeGetTick() - start);
         break;
     }
     default:
@@ -100,9 +98,9 @@ static int WaveOutOpen(DAO *dAO, AudioAttr *audioAttr)
     }
     if (dAO->as == AS_OPENING)
     {
-        DLog(DLOG_D, TAG, "before wait for open");
+        long long start = DTimeGetTick();
         DConditionVaribleWait(dAO->cv, dAO->mutex);
-        DLog(DLOG_D, TAG, "after wait for open");
+        DLog(DLOG_D, TAG, "after wait for open, diff=%lld", DTimeGetTick() - start);
     }
     DMutexunLock(dAO->mutex);
     return 0;
@@ -130,8 +128,6 @@ static int WaveOutWrite(DAO *dAO, DPCM *pcm)
         return -1;
     }
 
-    DMutexLock(dAO->mutex);
-
     DLog(DLOG_D, TAG, "waveOutWrite, size=%u", pcm->size);
     if (waveOutWrite(dAO->hWaveOut, pWaveHeader, sizeof(WAVEHDR)))
     {
@@ -140,12 +136,14 @@ static int WaveOutWrite(DAO *dAO, DPCM *pcm)
         DMutexunLock(dAO->mutex);
         return -1;
     }
+
+    DMutexLock(dAO->mutex);
     dAO->bufferCount++;
     if (dAO->bufferCount > 3)
     {
-        DLog(DLOG_D, TAG, "before wait and bufferCount=%d", dAO->bufferCount);
+        long long start = DTimeGetTick();
         DConditionVaribleWait(dAO->cv, dAO->mutex);
-        DLog(DLOG_D, TAG, "after wait and bufferCount=%d", dAO->bufferCount);
+        DLog(DLOG_D, TAG, "after wait and bufferCount=%d, diff=%lld", dAO->bufferCount, DTimeGetTick() - start);
     }
     DMutexunLock(dAO->mutex);
 
