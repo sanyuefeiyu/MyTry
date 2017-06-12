@@ -254,6 +254,7 @@ int HA_LIBFFmpegDDPDecDeInit(void *hDecoder)
     // deload FFmpeg libraries
     DFFmpegRelease(&hdlFFmpegDDP->hdlFFmpeg);
 
+    DAOClose(hdlFFmpegDDP->dAO);
     DAORelease(&hdlFFmpegDDP->dAO);
 
     // release memory
@@ -303,6 +304,8 @@ void WritePCM(void *hDecoder, const char *path)
     }
 
     hdlFFmpegDDP = (FFmpegDDP*)hDecoder;
+    if (hdlFFmpegDDP->pcm.data == NULL || hdlFFmpegDDP->pcm.size <= 0)
+        return;
 
     DFileWrite(path, hdlFFmpegDDP->pcm.data, hdlFFmpegDDP->pcm.size);
 

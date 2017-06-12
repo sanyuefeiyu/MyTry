@@ -10,5 +10,5 @@
 #define FILE_PATH_13    "test.ac3"
 #define FILE_PATH_14    "durian_test_data_1353.ac3"
 
-#define g_FILE_PATH      FILE_PATH_12
+#define g_FILE_PATH      FILE_PATH_11
 #define gPCMOutputPath  "d:\\audio.pcm"
