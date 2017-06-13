@@ -34,6 +34,13 @@ typedef struct
     int bufferCount;
 
     list<LPWAVEHDR> *waveHDRList;
+
+    int caps_LRVOLUME;
+    int caps_PITCH;
+    int caps_PLAYBACKRATE;
+    int caps_SYNC;
+    int caps_VOLUME;
+    int caps_SAMPLEACCURATE;
 } DAO;
 
 static void Add2List(DAO *dAO, LPWAVEHDR waveHDR)
@@ -124,6 +131,16 @@ static int WaveOutOpen(DAO *dAO, AudioAttr *audioAttr)
         DMutexunLock(dAO->mutex);
         return -1;
     }
+
+    WAVEOUTCAPS pwoc;
+    MMRESULT result = waveOutGetDevCaps(WAVE_MAPPER, &pwoc, sizeof(WAVEOUTCAPS));
+    dAO->caps_LRVOLUME = pwoc.dwSupport & WAVECAPS_LRVOLUME;
+    dAO->caps_PITCH = pwoc.dwSupport & WAVECAPS_PITCH;
+    dAO->caps_PLAYBACKRATE = pwoc.dwSupport & WAVECAPS_PLAYBACKRATE;
+    dAO->caps_SYNC = pwoc.dwSupport & WAVECAPS_SYNC;
+    dAO->caps_VOLUME = pwoc.dwSupport & WAVECAPS_VOLUME;
+    dAO->caps_SAMPLEACCURATE = pwoc.dwSupport & WAVECAPS_SAMPLEACCURATE;
+
     if (dAO->as == AS_OPENING)
     {
         long long start = DTimeGetTick();
