@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <Windows.h>
+#include <list>
 #include "Mmsystem.h"
 #include "DMisc.h"
 #include "DThread.h"
@@ -9,6 +10,8 @@
 
 #define TAG                 "DAO"
 #define MAX_BUFFER_COUNT    10
+
+using namespace std;
 
 typedef enum
 {
@@ -29,7 +32,27 @@ typedef struct
     bool wait;
     AudioState as;
     int bufferCount;
+
+    list<LPWAVEHDR> *waveHDRList;
 } DAO;
+
+static void Add2List(DAO *dAO, LPWAVEHDR waveHDR)
+{
+    dAO->waveHDRList->push_back(waveHDR);
+}
+
+static void CleanList(DAO *dAO)
+{
+    while (dAO->waveHDRList->size() > 0)
+    {
+        LPWAVEHDR waveHDR = *dAO->waveHDRList->begin();
+        waveOutUnprepareHeader(dAO->hWaveOut, waveHDR, sizeof(WAVEHDR));
+        free(waveHDR->lpData);
+        free(waveHDR);
+
+        dAO->waveHDRList->pop_front();
+    }
+}
 
 static void CALLBACK WaveOutProc(HWAVEOUT hwo, UINT uMsg, DWORD dwInstance, DWORD dwParam1, DWORD dwParam2 )
 {
@@ -55,6 +78,7 @@ static void CALLBACK WaveOutProc(HWAVEOUT hwo, UINT uMsg, DWORD dwInstance, DWOR
     case WOM_DONE:
     {
         long long start = DTimeGetTick();
+        Add2List(dAO, (LPWAVEHDR)dwParam1);
         dAO->bufferCount--;
         if (dAO->wait)
             DConditionVaribleSignal(dAO->cv);
@@ -144,6 +168,7 @@ static int WaveOutWrite(DAO *dAO, DPCM *pcm)
     }
 
     DMutexLock(dAO->mutex);
+    CleanList(dAO);
     dAO->bufferCount++;
     if (dAO->bufferCount >= MAX_BUFFER_COUNT)
     {
@@ -170,6 +195,7 @@ static void WaveOutClose(DAO *dAO)
 
     DMutexLock(dAO->mutex);
     waveOutReset(dAO->hWaveOut);
+    CleanList(dAO);
     waveOutClose(dAO->hWaveOut);
     DMutexunLock(dAO->mutex);
 }
@@ -185,6 +211,7 @@ DEXPORT void* DAOInit()
     dAO->wait = false;
     dAO->as = AS_NONE;
     dAO->bufferCount = 0;
+    dAO->waveHDRList = new list<LPWAVEHDR>;
 
     return dAO;
 }
@@ -200,6 +227,7 @@ DEXPORT void DAORelease(void **ao)
 
     DMutexRelease(&dAO->mutex);
     DConditionVaribleRelease(&dAO->cv);
+    delete dAO->waveHDRList;
     free(dAO);
     *ao = NULL;
 }
