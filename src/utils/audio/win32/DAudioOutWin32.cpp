@@ -132,14 +132,36 @@ static int WaveOutOpen(DAO *dAO, AudioAttr *audioAttr)
         return -1;
     }
 
-    WAVEOUTCAPS pwoc;
-    MMRESULT result = waveOutGetDevCaps(WAVE_MAPPER, &pwoc, sizeof(WAVEOUTCAPS));
-    dAO->caps_LRVOLUME = pwoc.dwSupport & WAVECAPS_LRVOLUME;
-    dAO->caps_PITCH = pwoc.dwSupport & WAVECAPS_PITCH;
-    dAO->caps_PLAYBACKRATE = pwoc.dwSupport & WAVECAPS_PLAYBACKRATE;
-    dAO->caps_SYNC = pwoc.dwSupport & WAVECAPS_SYNC;
-    dAO->caps_VOLUME = pwoc.dwSupport & WAVECAPS_VOLUME;
-    dAO->caps_SAMPLEACCURATE = pwoc.dwSupport & WAVECAPS_SAMPLEACCURATE;
+    MMRESULT result;
+
+    UINT deviceID;
+    result = waveOutGetID(dAO->hWaveOut, &deviceID);
+
+    UINT numDevs = waveOutGetNumDevs();
+    for (size_t i = 0; i < numDevs; i++)
+    {
+        WAVEOUTCAPS pwoc;
+        result = waveOutGetDevCaps(i, &pwoc, sizeof(WAVEOUTCAPS));
+        dAO->caps_LRVOLUME = pwoc.dwSupport & WAVECAPS_LRVOLUME;
+        dAO->caps_PITCH = pwoc.dwSupport & WAVECAPS_PITCH;
+        dAO->caps_PLAYBACKRATE = pwoc.dwSupport & WAVECAPS_PLAYBACKRATE;
+        dAO->caps_SYNC = pwoc.dwSupport & WAVECAPS_SYNC;
+        dAO->caps_VOLUME = pwoc.dwSupport & WAVECAPS_VOLUME;
+        dAO->caps_SAMPLEACCURATE = pwoc.dwSupport & WAVECAPS_SAMPLEACCURATE;
+    }
+
+    DWORD rate;
+    result = waveOutGetPlaybackRate(dAO->hWaveOut, &rate);
+    DWORD volume, lVolume, rVolume, bits;
+    result = waveOutSetVolume(dAO->hWaveOut, 0xffffffff);
+    result = waveOutGetVolume(dAO->hWaveOut, &volume);
+    bits = sizeof(DWORD) * 8 / 2;
+    lVolume = (volume << bits) >> bits;
+    rVolume = volume >> bits;
+    lVolume = lVolume / 2;
+    rVolume = rVolume / 2;
+    volume = lVolume | (rVolume << bits);
+    result = waveOutSetVolume(dAO->hWaveOut, volume);
 
     if (dAO->as == AS_OPENING)
     {
